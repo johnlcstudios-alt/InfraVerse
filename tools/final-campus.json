@@ -1,0 +1,160 @@
+{
+ "island": {
+  "before": {
+   "soc": 45
+  },
+  "healthy": {
+   "soc": 44.10264010274267,
+   "batteryPower": -20,
+   "island": true,
+   "grid": 0,
+   "coldServed": 9215,
+   "unserved": 0
+  },
+  "depleted": {
+   "soc": 4.1,
+   "shed": 0.79,
+   "unserved": 20.31,
+   "coldServed": 2059,
+   "lightServed": 0,
+   "dockServed": 0,
+   "alarms": [
+    "battery-low",
+    "battery-critical",
+    "load-shed"
+   ]
+  },
+  "ok": true
+ },
+ "water": {
+  "before": {
+   "tank": 92.41852352873377,
+   "cold": [
+    -17.35,
+    -2.84
+   ]
+  },
+  "after": {
+   "tank": 4.836052315898409,
+   "cold": [
+    -16.11,
+    -2.17
+   ]
+  },
+  "warming": true,
+  "pumpFlowZero": true,
+  "ok": true
+ },
+ "production": {
+  "runningRate": 470,
+  "rawRate": 0,
+  "resumed": 470,
+  "starved": true,
+  "producedBefore": 147,
+  "produced": 173,
+  "stockBefore": 738,
+  "stockAfterNoMaterial": 746,
+  "stockAfterMaterial": 754,
+  "ok": true
+ },
+ "coldChain": {
+  "before": {
+   "cold": [
+    -18.9,
+    -3.96
+   ],
+   "quarantine": 0
+  },
+  "after": {
+   "cold": [
+    -4.38,
+    4.05
+   ],
+   "quarantine": 853,
+   "breach": true,
+   "alarms": [
+    "compressor-fault",
+    "cold-breach",
+    "quarantine"
+   ]
+  },
+  "recovered": {
+   "cold": [
+    -18.39,
+    -3.31
+   ],
+   "breach": false
+  },
+  "ok": true
+ },
+ "logistics": {
+  "before": {
+   "raw": 100,
+   "inv": 191
+  },
+  "received": 158,
+  "invBefore": 272,
+  "invAfter": 169,
+  "dispatched": 160,
+  "trucks": 0,
+  "ok": true
+ },
+ "scenario": {
+  "normal": {
+   "simTime": 32520,
+   "island": false,
+   "cloud": 0.18,
+   "arrivals": 42,
+   "target": 420,
+   "irr": 652,
+   "load": 22677
+  },
+  "outage": {
+   "simTime": 50520,
+   "island": true,
+   "cloud": 0.32,
+   "arrivals": 60,
+   "target": 300,
+   "irr": 696,
+   "load": 22636
+  },
+  "night": {
+   "simTime": 82920,
+   "island": false,
+   "cloud": 0.2,
+   "arrivals": 70,
+   "target": 240,
+   "irr": 0,
+   "load": 25470
+  },
+  "heatwave": {
+   "simTime": 46860,
+   "island": false,
+   "cloud": 0.1,
+   "arrivals": 40,
+   "target": 480,
+   "irr": 940,
+   "load": 22570
+  },
+  "ok": true,
+  "scenarioLabel": "Heat Wave"
+ },
+ "recovery": {
+  "cold": [
+   -18.59,
+   -3.68
+  ],
+  "breach": false,
+  "setpoints": [
+   -18,
+   -2
+  ],
+  "soc": 92,
+  "tank": 93.4,
+  "rate": 470,
+  "activeAlarms": [],
+  "produced": 581,
+  "ok": true
+ },
+ "errors": []
+}

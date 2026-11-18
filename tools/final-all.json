@@ -1,0 +1,1042 @@
+[
+ {
+  "id": "parking",
+  "ok": true,
+  "phases": {
+   "load": {
+    "name": "Smart Parking Lot",
+    "sensors": 22,
+    "objects": 54,
+    "equipment": 9,
+    "categories": 19,
+    "tabs": [
+     "overview",
+     "simulation",
+     "view",
+     "equipment",
+     "sensors",
+     "operations",
+     "spawn",
+     "visibility",
+     "alarms",
+     "analytics",
+     "settings"
+    ],
+    "missing": []
+   },
+   "tabs": [],
+   "sim": {
+    "simTime": 30781,
+    "newHistory": 89,
+    "alarms": 0,
+    "events": 15,
+    "errors": []
+   },
+   "nullSensors": [],
+   "sensorVariety": 5,
+   "inspectors": [
+    {
+     "kind": "booth",
+     "id": "booth",
+     "title": "Security Booth",
+     "sections": 1,
+     "fields": 7,
+     "controls": 2
+    },
+    {
+     "kind": "controller",
+     "id": "access-controller",
+     "title": "Access Control Node",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "gate",
+     "id": "gate-entry",
+     "title": "Entrance Barrier",
+     "sections": 1,
+     "fields": 6,
+     "controls": 7
+    },
+    {
+     "kind": "slot",
+     "id": "slot.P-01",
+     "title": "Parking Bay P-01",
+     "sections": 1,
+     "fields": 7,
+     "controls": 6
+    },
+    {
+     "kind": "sensor",
+     "id": "sensor.slot-01",
+     "title": "Occupancy P-01",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    },
+    {
+     "kind": "lamp",
+     "id": "lamp-1",
+     "title": "Perimeter Light L-1",
+     "sections": 1,
+     "fields": 3,
+     "controls": 1
+    },
+    {
+     "kind": "camera",
+     "id": "cctv-1",
+     "title": "CCTV Camera 01",
+     "sections": 1,
+     "fields": 4,
+     "controls": 1
+    },
+    {
+     "kind": "vehicle",
+     "id": "vehicle.NX-2007",
+     "title": "NX-2007",
+     "sections": 1,
+     "fields": 8,
+     "controls": 4
+    }
+   ],
+   "inspectorErrors": [],
+   "visibility": {
+    "simAdvanced": true,
+    "hiddenRoof": true,
+    "state": "RUNNING"
+   },
+   "visibilityErrors": [],
+   "persistence": {
+    "saved": false,
+    "sensors": 0,
+    "samples": 100
+   }
+  },
+  "errors": []
+ },
+ {
+  "id": "water",
+  "ok": true,
+  "phases": {
+   "load": {
+    "name": "Smart Water Tank",
+    "sensors": 8,
+    "objects": 33,
+    "equipment": 9,
+    "categories": 19,
+    "tabs": [
+     "overview",
+     "simulation",
+     "view",
+     "equipment",
+     "sensors",
+     "operations",
+     "spawn",
+     "visibility",
+     "alarms",
+     "analytics",
+     "settings"
+    ],
+    "missing": []
+   },
+   "tabs": [],
+   "sim": {
+    "simTime": 30781,
+    "newHistory": 89,
+    "alarms": 0,
+    "events": 2,
+    "errors": []
+   },
+   "nullSensors": [],
+   "sensorVariety": 8,
+   "inspectors": [
+    {
+     "kind": "structure",
+     "id": "support-tower",
+     "title": "Elevated Tank Support Tower",
+     "sections": 1,
+     "fields": 5,
+     "controls": 2
+    },
+    {
+     "kind": "ladder",
+     "id": "access-ladder",
+     "title": "Tank Access Ladder",
+     "sections": 1,
+     "fields": 5,
+     "controls": 2
+    },
+    {
+     "kind": "tank",
+     "id": "tank",
+     "title": "Reservoir Tank T-01",
+     "sections": 1,
+     "fields": 8,
+     "controls": 8
+    },
+    {
+     "kind": "gauge",
+     "id": "level-gauge",
+     "title": "Sight Glass Level Gauge",
+     "sections": 1,
+     "fields": 4,
+     "controls": 2
+    },
+    {
+     "kind": "pump",
+     "id": "pump",
+     "title": "Booster Pump P-01",
+     "sections": 1,
+     "fields": 9,
+     "controls": 9
+    },
+    {
+     "kind": "motor",
+     "id": "pump-motor",
+     "title": "Pump Motor M-01",
+     "sections": 1,
+     "fields": 9,
+     "controls": 3
+    },
+    {
+     "kind": "room",
+     "id": "pump-house",
+     "title": "Pump House Control Room",
+     "sections": 1,
+     "fields": 6,
+     "controls": 4
+    },
+    {
+     "kind": "door",
+     "id": "pump-house-door",
+     "title": "Pump House Door",
+     "sections": 1,
+     "fields": 4,
+     "controls": 1
+    },
+    {
+     "kind": "pipe",
+     "id": "supply-main",
+     "title": "Municipal Supply Main",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "valve",
+     "id": "inlet-valve",
+     "title": "Inlet Isolation Valve V-01",
+     "sections": 1,
+     "fields": 6,
+     "controls": 4
+    },
+    {
+     "kind": "flowmeter",
+     "id": "inlet-flow-meter",
+     "title": "Inlet Flow Meter FT-03",
+     "sections": 1,
+     "fields": 6,
+     "controls": 2
+    },
+    {
+     "kind": "beacon",
+     "id": "signal-beacon",
+     "title": "Plant Status Beacon",
+     "sections": 1,
+     "fields": 5,
+     "controls": 2
+    },
+    {
+     "kind": "cabinet",
+     "id": "control-cabinet",
+     "title": "Water SCADA Control Cabinet",
+     "sections": 1,
+     "fields": 8,
+     "controls": 5
+    },
+    {
+     "kind": "panel",
+     "id": "pump-house-panel",
+     "title": "Pump House HMI Panel",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    },
+    {
+     "kind": "lamp",
+     "id": "lamp-1",
+     "title": "Yard Floodlight",
+     "sections": 1,
+     "fields": 4,
+     "controls": 1
+    },
+    {
+     "kind": "sign",
+     "id": "facility-sign",
+     "title": "Facility Identification Board",
+     "sections": 0,
+     "fields": 4,
+     "controls": 0
+    },
+    {
+     "kind": "sensor",
+     "id": "sensor.level",
+     "title": "Tank Level",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    }
+   ],
+   "inspectorErrors": [],
+   "visibility": {
+    "simAdvanced": true,
+    "hiddenRoof": true,
+    "state": "RUNNING"
+   },
+   "visibilityErrors": [],
+   "persistence": {
+    "saved": false,
+    "sensors": 0,
+    "samples": 100
+   }
+  },
+  "errors": []
+ },
+ {
+  "id": "conveyor",
+  "ok": true,
+  "phases": {
+   "load": {
+    "name": "Conveyor Sorting Line",
+    "sensors": 9,
+    "objects": 38,
+    "equipment": 9,
+    "categories": 14,
+    "tabs": [
+     "overview",
+     "simulation",
+     "view",
+     "equipment",
+     "sensors",
+     "operations",
+     "spawn",
+     "visibility",
+     "alarms",
+     "analytics",
+     "settings"
+    ],
+    "missing": []
+   },
+   "tabs": [],
+   "sim": {
+    "simTime": 30783,
+    "newHistory": 89,
+    "alarms": 1,
+    "events": 60,
+    "errors": []
+   },
+   "nullSensors": [],
+   "sensorVariety": 6,
+   "inspectors": [
+    {
+     "kind": "room",
+     "id": "control-room",
+     "title": "Line Control Room",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "hmi",
+     "id": "control-room.console",
+     "title": "Operator Console",
+     "sections": 1,
+     "fields": 5,
+     "controls": 5
+    },
+    {
+     "kind": "door",
+     "id": "control-room.door",
+     "title": "Control Room Door",
+     "sections": 1,
+     "fields": 3,
+     "controls": 1
+    },
+    {
+     "kind": "conveyor",
+     "id": "conveyor.line",
+     "title": "Sorting Conveyor CVY-03",
+     "sections": 2,
+     "fields": 8,
+     "controls": 13
+    },
+    {
+     "kind": "lamp",
+     "id": "lamp-1",
+     "title": "Floodlight 01",
+     "sections": 1,
+     "fields": 3,
+     "controls": 1
+    },
+    {
+     "kind": "motor",
+     "id": "drive.motor",
+     "title": "Belt Drive Motor M-03",
+     "sections": 1,
+     "fields": 7,
+     "controls": 4
+    },
+    {
+     "kind": "gearbox",
+     "id": "drive.gearbox",
+     "title": "Helical Gearbox GB-03",
+     "sections": 1,
+     "fields": 5,
+     "controls": 2
+    },
+    {
+     "kind": "guard",
+     "id": "drive.guard",
+     "title": "Coupling Guard",
+     "sections": 1,
+     "fields": 3,
+     "controls": 2
+    },
+    {
+     "kind": "station",
+     "id": "sort.station",
+     "title": "Swing-Arm Sort Station",
+     "sections": 1,
+     "fields": 5,
+     "controls": 4
+    },
+    {
+     "kind": "panel",
+     "id": "sort.airprep",
+     "title": "Pneumatic Air Preparation",
+     "sections": 1,
+     "fields": 3,
+     "controls": 2
+    },
+    {
+     "kind": "diverter",
+     "id": "diverter.arm",
+     "title": "Pneumatic Diverter Arm",
+     "sections": 2,
+     "fields": 7,
+     "controls": 7
+    },
+    {
+     "kind": "chute",
+     "id": "chute.A",
+     "title": "Discharge Chute A",
+     "sections": 1,
+     "fields": 4,
+     "controls": 3
+    },
+    {
+     "kind": "bin",
+     "id": "bin.A",
+     "title": "Collection Bin A",
+     "sections": 2,
+     "fields": 6,
+     "controls": 11
+    },
+    {
+     "kind": "scanner",
+     "id": "scanner.barcode",
+     "title": "Barcode Scan Tunnel",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "infeed",
+     "id": "infeed.station",
+     "title": "Carton Infeed Station",
+     "sections": 1,
+     "fields": 6,
+     "controls": 4
+    },
+    {
+     "kind": "cabinet",
+     "id": "cabinet.main",
+     "title": "Line Control Cabinet",
+     "sections": 2,
+     "fields": 6,
+     "controls": 10
+    },
+    {
+     "kind": "estop",
+     "id": "estop.button",
+     "title": "Emergency Stop Pushbutton",
+     "sections": 1,
+     "fields": 4,
+     "controls": 3
+    },
+    {
+     "kind": "stacklight",
+     "id": "tower.light",
+     "title": "Line Stack Light",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "sensor",
+     "id": "sensor.entry-present",
+     "title": "Entry Presence",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    },
+    {
+     "kind": "box",
+     "id": "box.BX-0001",
+     "title": "Carton BX-0001",
+     "sections": 2,
+     "fields": 10,
+     "controls": 6
+    }
+   ],
+   "inspectorErrors": [],
+   "visibility": {
+    "simAdvanced": true,
+    "hiddenRoof": true,
+    "state": "RUNNING"
+   },
+   "visibilityErrors": [],
+   "persistence": {
+    "saved": false,
+    "sensors": 0,
+    "samples": 101
+   }
+  },
+  "errors": []
+ },
+ {
+  "id": "cold",
+  "ok": true,
+  "phases": {
+   "load": {
+    "name": "Cold Storage Room",
+    "sensors": 11,
+    "objects": 45,
+    "equipment": 8,
+    "categories": 20,
+    "tabs": [
+     "overview",
+     "simulation",
+     "view",
+     "equipment",
+     "sensors",
+     "operations",
+     "spawn",
+     "visibility",
+     "alarms",
+     "analytics",
+     "settings"
+    ],
+    "missing": []
+   },
+   "tabs": [],
+   "sim": {
+    "simTime": 30781,
+    "newHistory": 89,
+    "alarms": 1,
+    "events": 2,
+    "errors": []
+   },
+   "nullSensors": [],
+   "sensorVariety": 10,
+   "inspectors": [
+    {
+     "kind": "door",
+     "id": "door-freezer",
+     "title": "Walk-in Freezer Door",
+     "sections": 1,
+     "fields": 8,
+     "controls": 8
+    },
+    {
+     "kind": "compressor",
+     "id": "compressor",
+     "title": "Condensing Unit CU-01",
+     "sections": 1,
+     "fields": 10,
+     "controls": 9
+    },
+    {
+     "kind": "evaporator",
+     "id": "evaporator",
+     "title": "Evaporator Unit EVAP-02",
+     "sections": 1,
+     "fields": 7,
+     "controls": 5
+    },
+    {
+     "kind": "pipes",
+     "id": "pipe-header",
+     "title": "Refrigerant Service Manifold",
+     "sections": 1,
+     "fields": 7,
+     "controls": 3
+    },
+    {
+     "kind": "panel",
+     "id": "control-panel",
+     "title": "Climate Controller CP-01",
+     "sections": 1,
+     "fields": 9,
+     "controls": 9
+    },
+    {
+     "kind": "display",
+     "id": "temp-display",
+     "title": "Room Temperature Display",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "humidity",
+     "id": "humidity-unit",
+     "title": "Humidity Control Unit HC-01",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    },
+    {
+     "kind": "beacon",
+     "id": "alarm-beacon",
+     "title": "Safety Alarm Beacon",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "light",
+     "id": "light-1",
+     "title": "Cold Room Light L-1",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "shelf",
+     "id": "shelf-a",
+     "title": "Frozen Store A",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "item",
+     "id": "item.SKU-101",
+     "title": "Frozen Beef Cuts",
+     "sections": 1,
+     "fields": 9,
+     "controls": 7
+    },
+    {
+     "kind": "sensor",
+     "id": "sensor.zone-a-temp",
+     "title": "Freezer Zone A Temperature",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    },
+    {
+     "kind": "heatmap",
+     "id": "heatmap-zone-a",
+     "title": "Freezer Zone A Heat Map",
+     "sections": 1,
+     "fields": 7,
+     "controls": 4
+    }
+   ],
+   "inspectorErrors": [],
+   "visibility": {
+    "simAdvanced": true,
+    "hiddenRoof": true,
+    "state": "RUNNING"
+   },
+   "visibilityErrors": [],
+   "persistence": {
+    "saved": false,
+    "sensors": 0,
+    "samples": 100
+   }
+  },
+  "errors": []
+ },
+ {
+  "id": "solar",
+  "ok": true,
+  "phases": {
+   "load": {
+    "name": "Solar & Battery System",
+    "sensors": 12,
+    "objects": 45,
+    "equipment": 9,
+    "categories": 16,
+    "tabs": [
+     "overview",
+     "simulation",
+     "view",
+     "equipment",
+     "sensors",
+     "operations",
+     "spawn",
+     "visibility",
+     "alarms",
+     "analytics",
+     "settings"
+    ],
+    "missing": []
+   },
+   "tabs": [],
+   "sim": {
+    "simTime": 37381,
+    "newHistory": 89,
+    "alarms": 0,
+    "events": 2,
+    "errors": []
+   },
+   "nullSensors": [],
+   "sensorVariety": 11,
+   "inspectors": [
+    {
+     "kind": "panel",
+     "id": "panel-1",
+     "title": "PV Panel A1",
+     "sections": 1,
+     "fields": 7,
+     "controls": 3
+    },
+    {
+     "kind": "station",
+     "id": "weather-station",
+     "title": "Solar Monitoring Station",
+     "sections": 1,
+     "fields": 6,
+     "controls": 2
+    },
+    {
+     "kind": "controller",
+     "id": "controller",
+     "title": "MPPT Charge Controller",
+     "sections": 1,
+     "fields": 7,
+     "controls": 9
+    },
+    {
+     "kind": "battery-rack",
+     "id": "battery-rack",
+     "title": "Battery Storage Rack",
+     "sections": 1,
+     "fields": 8,
+     "controls": 11
+    },
+    {
+     "kind": "battery",
+     "id": "battery-1",
+     "title": "Battery Module BAT-01",
+     "sections": 1,
+     "fields": 8,
+     "controls": 11
+    },
+    {
+     "kind": "inverter",
+     "id": "inverter",
+     "title": "Hybrid Inverter",
+     "sections": 1,
+     "fields": 6,
+     "controls": 4
+    },
+    {
+     "kind": "distribution",
+     "id": "distribution",
+     "title": "AC Distribution Panel",
+     "sections": 1,
+     "fields": 7,
+     "controls": 4
+    },
+    {
+     "kind": "building",
+     "id": "load-building",
+     "title": "Utility Load Centre",
+     "sections": 1,
+     "fields": 7,
+     "controls": 3
+    },
+    {
+     "kind": "load",
+     "id": "load-pump",
+     "title": "Water Pump Skid",
+     "sections": 1,
+     "fields": 5,
+     "controls": 4
+    },
+    {
+     "kind": "loadbank",
+     "id": "load-bank",
+     "title": "Resistive Load Bank",
+     "sections": 1,
+     "fields": 4,
+     "controls": 3
+    },
+    {
+     "kind": "loadcontrol",
+     "id": "load-control",
+     "title": "Load Control Panel",
+     "sections": 1,
+     "fields": 5,
+     "controls": 2
+    },
+    {
+     "kind": "meter",
+     "id": "pv-meter",
+     "title": "PV METER",
+     "sections": 1,
+     "fields": 4,
+     "controls": 1
+    },
+    {
+     "kind": "combiner",
+     "id": "combiner",
+     "title": "PV String Combiner",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "lamp",
+     "id": "lamp-1",
+     "title": "Site Light L-1",
+     "sections": 0,
+     "fields": 4,
+     "controls": 0
+    },
+    {
+     "kind": "sign",
+     "id": "sign-main",
+     "title": "Facility Sign",
+     "sections": 0,
+     "fields": 3,
+     "controls": 0
+    },
+    {
+     "kind": "sensor",
+     "id": "sensor.pv-voltage",
+     "title": "PV Array Voltage",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    }
+   ],
+   "inspectorErrors": [],
+   "visibility": {
+    "simAdvanced": true,
+    "hiddenRoof": true,
+    "state": "RUNNING"
+   },
+   "visibilityErrors": [],
+   "persistence": {
+    "saved": false,
+    "sensors": 0,
+    "samples": 100
+   }
+  },
+  "errors": []
+ },
+ {
+  "id": "campus",
+  "ok": true,
+  "phases": {
+   "load": {
+    "name": "Integrated Use-Case Scenario",
+    "sensors": 16,
+    "objects": 37,
+    "equipment": 14,
+    "categories": 27,
+    "tabs": [
+     "overview",
+     "simulation",
+     "view",
+     "equipment",
+     "sensors",
+     "operations",
+     "spawn",
+     "visibility",
+     "alarms",
+     "analytics",
+     "settings"
+    ],
+    "missing": []
+   },
+   "tabs": [],
+   "sim": {
+    "simTime": 30781,
+    "newHistory": 89,
+    "alarms": 0,
+    "events": 11,
+    "errors": []
+   },
+   "nullSensors": [],
+   "sensorVariety": 16,
+   "inspectors": [
+    {
+     "kind": "pv-station",
+     "id": "pv-station",
+     "title": "PV Combiner & Inverter Station",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "pv-farm",
+     "id": "pv-farm",
+     "title": "Photovoltaic Array Field",
+     "sections": 1,
+     "fields": 6,
+     "controls": 4
+    },
+    {
+     "kind": "battery",
+     "id": "battery-bank",
+     "title": "Battery Energy Storage",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "distribution",
+     "id": "distribution",
+     "title": "Main Distribution Board",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "building",
+     "id": "power-house",
+     "title": "Power House",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "tank",
+     "id": "water-tank",
+     "title": "Elevated Water Tank T-06",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "pump",
+     "id": "pump-skid",
+     "title": "Booster Pump Set P-06",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "line",
+     "id": "packaging-line",
+     "title": "Packaging & Sorting Line LN-06",
+     "sections": 1,
+     "fields": 7,
+     "controls": 4
+    },
+    {
+     "kind": "motor",
+     "id": "line-motor",
+     "title": "Line Drive Motor M-06",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    },
+    {
+     "kind": "station",
+     "id": "sort-station",
+     "title": "Sort & Scan Station",
+     "sections": 1,
+     "fields": 4,
+     "controls": 2
+    },
+    {
+     "kind": "bin",
+     "id": "line-bin-0",
+     "title": "Dispatch Bin",
+     "sections": 1,
+     "fields": 3,
+     "controls": 1
+    },
+    {
+     "kind": "door",
+     "id": "cold-door",
+     "title": "Cold Store Dock Door D-06",
+     "sections": 1,
+     "fields": 4,
+     "controls": 2
+    },
+    {
+     "kind": "compressor",
+     "id": "cold-plant",
+     "title": "Condensing Plant CP-06",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "barrier",
+     "id": "barrier-in",
+     "title": "Yard Entry Barrier",
+     "sections": 1,
+     "fields": 4,
+     "controls": 3
+    },
+    {
+     "kind": "control",
+     "id": "control-centre",
+     "title": "Integrated Control Centre",
+     "sections": 1,
+     "fields": 5,
+     "controls": 3
+    },
+    {
+     "kind": "sensor",
+     "id": "sensor.pv-power",
+     "title": "PV Array Output",
+     "sections": 1,
+     "fields": 6,
+     "controls": 5
+    },
+    {
+     "kind": "truck",
+     "id": "truck-405",
+     "title": "Truck CG-405",
+     "sections": 1,
+     "fields": 6,
+     "controls": 3
+    }
+   ],
+   "inspectorErrors": [],
+   "visibility": {
+    "simAdvanced": true,
+    "hiddenRoof": true,
+    "state": "RUNNING"
+   },
+   "visibilityErrors": [],
+   "persistence": {
+    "saved": false,
+    "sensors": 0,
+    "samples": 100
+   }
+  },
+  "errors": []
+ }
+]

@@ -1,0 +1,14 @@
+import { chromium } from 'playwright-core';
+const b = await chromium.launch({ executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe', headless:true, args:['--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist'] });
+const page = await b.newPage({ viewport:{width:1600,height:900} });
+const errs=[]; page.on('pageerror',e=>errs.push('PAGEERR '+e.message)); page.on('console',m=>{if(m.type()==='error')errs.push(m.text())});
+await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded'}); await page.waitForTimeout(700);
+await page.evaluate(()=>window.__NEXUS_APP__.openInfrastructure('campus'));
+await page.waitForFunction(()=>!!window.__NEXUS_APP__.current, null, {timeout:40000});
+await page.waitForTimeout(9000);
+const st = await page.evaluate(()=>{ const c=window.__NEXUS_APP__.current; c.debugAdvance(600); c.scene.fitAll(1.0, true); c.scene.render(); return {objects:c.objects.size, calls:c.scene.renderer.info.render.calls, tris:c.scene.renderer.info.render.triangles, pv:+(c.pvPower/1000).toFixed(2), load:+(c.loadServed/1000).toFixed(2), soc:+c.batterySoc.toFixed(1), tank:+c.tankLevelPct.toFixed(1), rate:Math.round(c.productionRate), cold:c.coldZones.map(z=>+z.temp.toFixed(1)), trucks:c.trucks.length, produced:c.producedToday}; });
+console.log('STATE', JSON.stringify(st));
+await page.waitForTimeout(1200);
+await page.screenshot({path:'docs/qa/campus-scene.png'});
+console.log('ERRS', JSON.stringify(errs.slice(0,4)));
+await b.close();

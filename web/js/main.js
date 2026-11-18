@@ -62,13 +62,6 @@ const PROJECT_CREDITS = [
       'RAFALES, CAREN A.',
     ],
   },
-  {
-    id: 'campus', group: 'Integrated Scenario', facility: 'Integrated Use-Case Scenario',
-    members: [
-      'ALL GROUP MEMBERS',
-      '(Combines Groups 1, 3, 4, 5, 6)',
-    ],
-  },
 ];
 
 class InfraVerseApp {

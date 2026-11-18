@@ -1,0 +1,16 @@
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.csproj.AssemblyReference.cache
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.AssemblyInfoInputs.cache
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.AssemblyInfo.cs
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\runtimes\win-x64\native\WebView2Loader.dll
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\IndustrialDigitalTwinSimulator.exe.config
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\IndustrialDigitalTwinSimulator.exe
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\IndustrialDigitalTwinSimulator.pdb
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\Microsoft.Web.WebView2.Core.dll
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\Microsoft.Web.WebView2.WinForms.dll
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\Microsoft.Web.WebView2.Wpf.dll
+C:\xampp\htdocs\3DInfra\desktop\bin\Release\net48\WebView2Loader.dll
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\Industri.C6287FF1.Up2Date
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.exe
+C:\xampp\htdocs\3DInfra\desktop\obj\Release\net48\IndustrialDigitalTwinSimulator.pdb

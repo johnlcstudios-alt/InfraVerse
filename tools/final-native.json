@@ -1,0 +1,50 @@
+{
+ "ok": true,
+ "url": "https://app.idt.local/index.html",
+ "title": "NEXUS — Industrial Digital Twin Simulator",
+ "nativeBootConfig": {
+  "present": true,
+  "keys": [
+   "idt.cold.config",
+   "idt.cold.history",
+   "idt.conveyor.config",
+   "idt.conveyor.history",
+   "idt.global",
+   "idt.parking.config",
+   "idt.parking.history",
+   "idt.solar.config",
+   "idt.solar.history",
+   "idt.water.config",
+   "idt.water.history"
+  ]
+ },
+ "nativeBridge": true,
+ "cards": 6,
+ "storageEngine": "native",
+ "opened": {
+  "name": "Solar & Battery System",
+  "sensors": 12,
+  "objects": 45,
+  "soc": 63,
+  "solarPower": 5598,
+  "flows": [
+   14,
+   6,
+   0,
+   9,
+   11
+  ],
+  "tab": "overview"
+ },
+ "batteryTest": {
+  "genWithPanelsOff": 0
+ },
+ "backToMenu": true,
+ "visibility": {
+  "roofHidden": true,
+  "wallsHidden": true,
+  "simAdvanced": true,
+  "state": "RUNNING"
+ },
+ "errors": []
+}

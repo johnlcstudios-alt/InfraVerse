@@ -71,25 +71,7 @@ export const REGISTRY = [
     preview: 'solar',
     loader: () => import('../infrastructures/solar.js'),
   },
-  {
-    id: 'campus',
-    code: 'USE-06',
-    name: 'Integrated Use-Case Scenario',
-    kicker: 'CROSS-SYSTEM SCENARIO',
-    description: 'All five twins on one operating site: solar and battery power the cold store, water plant, packaging line and logistics dock under a single scenario runner.',
-    accent: '#8ce06a',
-    accentRgb: '140, 224, 106',
-    icon: 'link',
-    sensors: 16,
-    equipment: 14,
-    preview: 'campus',
-    integrated: true,
-  },
 ];
-
-/* The integrated scenario is registered once its module is available, so a
-   failure to load it never breaks the launcher for the five core facilities. */
-REGISTRY[REGISTRY.length - 1].loader = () => import('../infrastructures/campus.js');
 
 export function getMeta(id) {
   return REGISTRY.find(r => r.id === id) || null;

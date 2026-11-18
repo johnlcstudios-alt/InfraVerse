@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>IndustrialDigitalTwinSimulator.SelfTest</RootNamespace>
+    <AssemblyName>StorageBridgeSelfTest</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <!-- StorageBridge.Attach/Detach reference CoreWebView2 types, so the test
+         project needs the same WebView2 SDK reference as the desktop project. -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Compile the shipping implementation directly so the test exercises the
+         exact same source that is embedded in the desktop executable. -->
+    <Compile Include="..\..\desktop\Json.cs" Link="Json.cs" />
+    <Compile Include="..\..\desktop\ConfigStore.cs" Link="ConfigStore.cs" />
+    <Compile Include="..\..\desktop\StorageBridge.cs" Link="StorageBridge.cs" />
+  </ItemGroup>
+
+</Project>

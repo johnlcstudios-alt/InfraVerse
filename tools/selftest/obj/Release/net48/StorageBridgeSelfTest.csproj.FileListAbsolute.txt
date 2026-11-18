@@ -1,0 +1,14 @@
+C:\xampp\htdocs\3DInfra\tools\selftest\obj\Release\net48\StorageBridgeSelfTest.csproj.AssemblyReference.cache
+C:\xampp\htdocs\3DInfra\tools\selftest\obj\Release\net48\StorageBridgeSelfTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\3DInfra\tools\selftest\obj\Release\net48\StorageBridgeSelfTest.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\runtimes\win-x64\native\WebView2Loader.dll
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\StorageBridgeSelfTest.exe.config
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\StorageBridgeSelfTest.exe
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\StorageBridgeSelfTest.pdb
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\Microsoft.Web.WebView2.Core.dll
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\Microsoft.Web.WebView2.WinForms.dll
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\Microsoft.Web.WebView2.Wpf.dll
+C:\xampp\htdocs\3DInfra\tools\selftest\bin\Release\net48\WebView2Loader.dll
+C:\xampp\htdocs\3DInfra\tools\selftest\obj\Release\net48\StorageB.FF623309.Up2Date
+C:\xampp\htdocs\3DInfra\tools\selftest\obj\Release\net48\StorageBridgeSelfTest.exe
+C:\xampp\htdocs\3DInfra\tools\selftest\obj\Release\net48\StorageBridgeSelfTest.pdb

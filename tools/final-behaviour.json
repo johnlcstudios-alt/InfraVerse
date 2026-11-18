@@ -1,0 +1,73 @@
+{
+ "results": {
+  "water": {
+   "inletOn": 381,
+   "inletOff": 0,
+   "outletOn": 368,
+   "rising": 11.06,
+   "draining": -7.51,
+   "okSet": true,
+   "setLevel": 35,
+   "level": 35,
+   "volume": 3500,
+   "ok": true
+  },
+  "conveyor": {
+   "spawned": 3,
+   "moved": 3,
+   "sorted": 24,
+   "inBins": 24,
+   "bins": {
+    "a": 12,
+    "b": 12
+   },
+   "jammed": true,
+   "cleared": true,
+   "beltSpeed": 1.2,
+   "lineState": "RUNNING",
+   "ok": true
+  },
+  "cold": {
+   "warmed": 2.49,
+   "netAfterRestart": 1.54,
+   "doorRise": 1.77,
+   "doorOpenState": "OPEN",
+   "doorClosedState": "CLOSED",
+   "heatmap": true,
+   "zones": [
+    -14.7,
+    -14.6,
+    -14.3,
+    -14.5
+   ],
+   "avg": -14.5,
+   "humidity": 69,
+   "ok": true
+  },
+  "solar": {
+   "soc0": 63.1,
+   "soc1": 66.6,
+   "soc2": 62.5,
+   "gen0": 5721,
+   "genOff": 0,
+   "charge": 0,
+   "load": 7400,
+   "demand": 7400,
+   "flows": "n/a",
+   "ok": true
+  },
+  "parking": {
+   "v0": 1,
+   "created": true,
+   "parked": 5,
+   "occ": 5,
+   "entered": 5,
+   "exited": 3,
+   "gateOpen": "OPEN",
+   "gateClosed": "CLOSED",
+   "occupancy": 66.7,
+   "ok": true
+  }
+ },
+ "errors": []
+}

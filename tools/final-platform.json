@@ -1,0 +1,20 @@
+{
+ "menuCards": 6,
+ "menuOverview": false,
+ "themeDefault": "dark",
+ "water": {
+  "name": "Smart Water Tank",
+  "tabs": 11
+ },
+ "waterBackToMenu": true,
+ "solar": {
+  "name": "Solar & Battery System",
+  "tabs": 11
+ },
+ "solarBackToMenu": true,
+ "afterReloadTheme": "light",
+ "afterReloadMenu": 6,
+ "parkingSpeedPersisted": 5,
+ "waterSpeedIndependent": 1,
+ "errors": []
+}

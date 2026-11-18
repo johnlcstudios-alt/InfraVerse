@@ -1,0 +1,13 @@
+import { chromium } from 'playwright-core';
+const b = await chromium.launch({ executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe', headless:true, args:['--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist'] });
+const page = await b.newPage({ viewport:{width:1600,height:900} });
+const errs=[]; page.on('pageerror',e=>errs.push('PAGEERR '+e.message+'\n'+(e.stack||'').split('\n').slice(0,4).join('\n'))); page.on('console',m=>{if(m.type()==='error')errs.push(m.text())});
+await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'domcontentloaded'}); await page.waitForTimeout(800);
+console.log('cards', await page.locator('.facility-card').count());
+await page.evaluate(()=>window.__NEXUS_APP__.openInfrastructure('campus'));
+await page.waitForTimeout(4000);
+const st = await page.evaluate(()=>{ const c=window.__NEXUS_APP__.current; if(!c) return null; return {name:c.meta.name,sensors:c.sensorDefs.length,objects:c.objects.size,cats:c.scene.categoryOrder.length,tab:c.activeTab}; });
+console.log('STATE', JSON.stringify(st));
+console.log('ERRS', JSON.stringify(errs.slice(0,6),null,1));
+await page.screenshot({path:'docs/qa/campus-first.png'});
+await b.close();
