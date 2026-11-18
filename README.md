@@ -11,7 +11,11 @@ virtual origin, and persists simulation configuration to per-user JSON files on 
 
 **2. Run Installer**
 
-**3. Run Program**
+**3. Click More Info**
+
+**4. Click Run anyway**
+
+**5. Run Program**
 
 
 ```
