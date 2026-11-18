@@ -8,7 +8,9 @@ virtual origin, and persists simulation configuration to per-user JSON files on 
 
 ## How to Install 
 **1. Download Latest Version in Releases.**
+
 **2. Run Installer**
+
 **3. Run Program**
 
 
