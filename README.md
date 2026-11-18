@@ -9,13 +9,9 @@ virtual origin, and persists simulation configuration to per-user JSON files on 
 ## How to Install 
 **1. Download Latest Version in Releases.** [**Releases**](https://github.com/johnlcstudios-alt/InfraVerse/releases/tag/Release)
 
-**2. Run Installer**
+**2. Extract**
 
-**3. Click More Info**
-
-**4. Click Run anyway**
-
-**5. Run Program**
+**3. Click and run** _IndustrialDigitalTwinSimulator.exe_
 
 
 ```
