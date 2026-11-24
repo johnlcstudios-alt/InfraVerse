@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JohnLC OSS — Open Source Softwares</title>
+  <meta name="description" content="JohnLC Studios Open Source Softwares — open tools, systems and experiments from Eastern Samar, Philippines." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    /* Org-page specific: pinned repository list inside the hero console */
+    .mini-list { display: flex; flex-direction: column; gap: 2px; margin-top: 12px; }
+    .mini-repo { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; border: 1px solid transparent; }
+    .mini-repo:hover { background: rgba(255, 255, 255, 0.035); border-color: var(--line); }
+    .mini-repo .nm { font-size: 12px; color: var(--text); font-weight: 550; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-repo .lg { margin-left: auto; font-family: var(--mono); font-size: 9px; color: var(--muted-2); letter-spacing: 0.06em; white-space: nowrap; }
+    .mini-repo i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.8; flex: none; }
+    .mini-repo i.blue { background: var(--accent-2); }
+    .mini-repo i.dim { background: var(--muted-2); }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M32 4 57 18v28L32 60 7 46V18Z" stroke-width="2" />
+          <path d="M21 43V23l22 18V22" />
+        </svg>
+      </span>
+      <span class="brand-txt">
+        <b>JohnLC <em>OSS</em></b>
+        <small>Open Source Softwares</small>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="infraverse.html">InfraVerse</a>
+    </nav>
+    <a class="btn small primary" href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      GitHub
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">JohnLC Studios · Open Source</div>
+        <h1>Software built in the open, <span class="grad">shipped with care.</span></h1>
+        <p class="lede">
+          JohnLC OSS is the public home of JohnLC Studios' open source work — tools,
+          desktop shells and simulation platforms published openly from Eastern Samar,
+          Philippines. Every project is on GitHub, free to read, fork and use.
+        </p>
+        <div class="btn-row hero-actions">
+          <a class="btn primary" href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            Browse the GitHub organization
+          </a>
+          <a class="btn" href="infraverse.html">
+            Explore InfraVerse
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="chips">
+          <span class="chip"><i></i>Windows desktop</span>
+          <span class="chip"><i></i>Three.js &amp; WebView2</span>
+          <span class="chip"><i></i>Developer tooling</span>
+          <span class="chip"><i></i>Open by default</span>
+        </div>
+      </div>
+
+      <div class="console" aria-hidden="true">
+        <div class="console-bar">
+          <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+          <span class="console-title">org · johnlcstudios-alt</span>
+          <span class="console-live"><i></i>Public</span>
+        </div>
+        <div class="console-body">
+          <div class="viewport-mock" style="aspect-ratio:auto;padding:18px 16px;background:linear-gradient(160deg,#0a1622,#050b12);">
+            <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);">Open source softwares</div>
+            <div style="font-family:var(--mono);font-size:26px;letter-spacing:.02em;margin-top:8px;color:var(--text);">johnlcstudios-alt</div>
+            <div style="height:1px;background:var(--line);margin:14px 0 0;"></div>
+            <div class="mini-list">
+              <div class="mini-repo"><i></i><span class="nm">InfraVerse</span><span class="lg">FLAGSHIP</span></div>
+              <div class="mini-repo"><i class="blue"></i><span class="nm">JohnLC-AuraOS</span><span class="lg">TypeScript</span></div>
+              <div class="mini-repo"><i class="dim"></i><span class="nm">AIO</span><span class="lg">Batchfile</span></div>
+              <div class="mini-repo"><i class="dim"></i><span class="nm">OCPW-LMS-auto</span><span class="lg">HTML</span></div>
+              <div class="mini-repo"><i class="dim"></i><span class="nm">Roblox-SKILLS-for-OpenCode</span><span class="lg">Skills</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="sec-kicker">Flagship</div>
+        <h2>InfraVerse — the industrial digital twin platform</h2>
+        <p>
+          A Windows desktop simulator that couples five infrastructure systems into one
+          operating campus, rendered live in 3D. It is the largest project in the
+          JohnLC OSS collection.
+        </p>
+      </div>
+
+      <article class="flag-card">
+        <div class="flag-copy">
+          <span class="flag-badge">Featured project</span>
+          <h3>InfraVerse <span class="thin" style="color:var(--muted);font-weight:300;">/ NEXUS</span></h3>
+          <p>
+            Five digital twins — parking, water, conveyor, cold storage and solar power —
+            plus an integrated campus scenario where energy, water, production, cold chain
+            and logistics actually affect each other.
+          </p>
+          <ul class="flag-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Portable Windows build, no installer or admin rights</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Three.js scenes hosted in Edge WebView2</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Per-user JSON persistence, alarms, analytics and CSV export</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn primary" href="infraverse.html">Open the landing page</a>
+            <a class="btn" href="https://github.com/johnlcstudios-alt/InfraVerse" target="_blank" rel="noopener">
+              Source on GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="flag-art" aria-hidden="true">
+          <svg viewBox="0 0 340 240" fill="none">
+            <defs>
+              <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#36e2c2" stop-opacity=".22" />
+                <stop offset="1" stop-color="#36e2c2" stop-opacity=".02" />
+              </linearGradient>
+            </defs>
+            <path d="M40 190 104 158v-44L40 146Z" fill="url(#fg)" stroke="#36e2c2" stroke-opacity=".45" />
+            <path d="M104 158 168 190V146l-64-32Z" fill="rgba(54,226,194,.07)" stroke="#36e2c2" stroke-opacity=".35" />
+            <path d="M104 114V58l64 32v56Z" fill="rgba(70,169,255,.09)" stroke="#46a9ff" stroke-opacity=".4" />
+            <path d="M168 146v-56l64-32v100Z" fill="rgba(70,169,255,.04)" stroke="#46a9ff" stroke-opacity=".28" />
+            <path d="M40 146 104 114l64 32-64 32Z" fill="rgba(54,226,194,.05)" stroke="#36e2c2" stroke-opacity=".3" />
+            <path d="M104 58l64 32 64-32-64-32Z" fill="rgba(70,169,255,.12)" stroke="#46a9ff" stroke-opacity=".45" />
+            <path d="M168 90v56" stroke="#e8f2f9" stroke-opacity=".25" stroke-dasharray="4 5" />
+            <path d="M104 114 168 90" stroke="#36e2c2" stroke-opacity=".5" stroke-dasharray="3 6" />
+            <path d="M232 58v88" stroke="#46a9ff" stroke-opacity=".35" stroke-dasharray="3 6" />
+            <circle cx="104" cy="58" r="3.5" fill="#36e2c2" />
+            <circle cx="232" cy="58" r="3.5" fill="#46a9ff" />
+            <circle cx="168" cy="170" r="3.5" fill="#36e2c2" />
+            <circle cx="104" cy="114" r="2.5" fill="#e8f2f9" fill-opacity=".6" />
+            <path d="M28 206h284" stroke="#72889b" stroke-opacity=".25" />
+            <path d="M28 206v-8M312 206v-8" stroke="#72889b" stroke-opacity=".35" />
+            <text x="28" y="224" fill="#52687a" font-family="Cascadia Code, Consolas, monospace" font-size="8" letter-spacing="2">SOLAR · WATER · LINE · COLD · LOGISTICS</text>
+          </svg>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="sec-kicker">Repositories</div>
+        <h2>More from the organization</h2>
+        <p>
+          Desktop shells, automation helpers and course systems. The <a href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">GitHub profile</a>
+          is always the authoritative list.
+        </p>
+      </div>
+
+      <div class="repo-grid">
+        <a class="repo-card" href="https://github.com/johnlcstudios-alt/JohnLC-AuraOS" target="_blank" rel="noopener">
+          <div class="repo-top">
+            <span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span>
+          </div>
+          <h3>JohnLC-AuraOS</h3>
+          <p>A hybrid desktop shell for people who like the best of both worlds.</p>
+          <div class="lang"><i></i>TypeScript</div>
+        </a>
+
+        <a class="repo-card" href="https://github.com/johnlcstudios-alt/AIO" target="_blank" rel="noopener">
+          <div class="repo-top">
+            <span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5v8l-9 5-9-5V8Z"/><path d="M12 12v9M3 8l9 4 9-4"/></svg></span>
+            <span class="fork">Fork</span>
+          </div>
+          <h3>AIO</h3>
+          <p>All of the necessary software of JohnLC Studios, packaged in one place.</p>
+          <div class="lang"><i></i>Batchfile</div>
+        </a>
+
+        <a class="repo-card" href="https://github.com/johnlcstudios-alt/OCPW-LMS-auto" target="_blank" rel="noopener">
+          <div class="repo-top">
+            <span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5-6 7 6 7M16 5l6 7-6 7"/></svg></span>
+          </div>
+          <h3>OCPW-LMS-auto</h3>
+          <p>OpenCode PlayWright automation for LMS workflows.</p>
+          <div class="lang"><i></i>HTML</div>
+        </a>
+
+        <a class="repo-card" href="https://github.com/johnlcstudios-alt/Roblox-SKILLS-for-OpenCode" target="_blank" rel="noopener">
+          <div class="repo-top">
+            <span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span>
+          </div>
+          <h3>Roblox-SKILLS-for-OpenCode</h3>
+          <p>Roblox skill definitions for the OpenCode agent tooling.</p>
+          <div class="lang"><i></i>Agent skills</div>
+        </a>
+
+        <a class="repo-card" href="https://github.com/johnlcstudios-alt/Documents-Biometric-Attendance-Payroll-System-for-ACLC-College-Tacloban" target="_blank" rel="noopener">
+          <div class="repo-top">
+            <span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span>
+            <span class="fork">Fork</span>
+          </div>
+          <h3>Documents — Biometric Attendance &amp; Payroll</h3>
+          <p>Documentation for the ACLC College Tacloban biometric attendance and payroll system.</p>
+          <div class="lang"><i></i>Documents</div>
+        </a>
+
+        <a class="repo-card" href="https://github.com/johnlcstudios-alt/ALM-Biometric-Attendance-Payroll-System-for-ACLC-College-Tacloban" target="_blank" rel="noopener">
+          <div class="repo-top">
+            <span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+            <span class="fork">Fork</span>
+          </div>
+          <h3>ALM — Biometric Attendance &amp; Payroll</h3>
+          <p>The application side of the ACLC College Tacloban attendance and payroll system.</p>
+          <div class="lang"><i></i>PHP</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div class="about-copy">
+        <div class="sec-kicker">About</div>
+        <h2 style="font-size:clamp(24px,2.6vw,32px);font-weight:640;">JohnLC Studios Open Source Softwares</h2>
+        <p style="margin-top:14px;">
+          This organization is the public, open source arm of <strong>JohnLC Studios</strong>,
+          based in Eastern Samar, Philippines. It hosts the alternative GitHub identity where
+          studio projects are published openly instead of being kept in private repositories.
+        </p>
+        <p>
+          The work spans Windows desktop applications, browser-based 3D simulation, and
+          scripting and automation tooling. Repositories include forks of the studio's
+          attendance and payroll systems for ACLC College Tacloban, kept public for
+          reference and reuse.
+        </p>
+        <p>
+          Everything listed here is readable and forkable on GitHub. For studio work outside
+          the open source collection, see the main JohnLC Studios website.
+        </p>
+        <div class="btn-row" style="margin-top:22px;">
+          <a class="btn small" href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">All repositories</a>
+          <a class="btn small" href="https://johnlcstudios.kesug.com" target="_blank" rel="noopener">JohnLC Studios ↗</a>
+        </div>
+      </div>
+
+      <div class="facts">
+        <div class="fact"><span class="k">Organization</span><span class="v">johnlcstudios-alt</span></div>
+        <div class="fact"><span class="k">Scope</span><span class="v">Open source softwares</span></div>
+        <div class="fact"><span class="k">Based in</span><span class="v">Eastern Samar, Philippines</span></div>
+        <div class="fact"><span class="k">Flagship</span><span class="v">InfraVerse · Industrial Digital Twin Simulator</span></div>
+        <div class="fact"><span class="k">Studio site</span><span class="v"><a href="https://johnlcstudios.kesug.com" target="_blank" rel="noopener">johnlcstudios.kesug.com</a></span></div>
+        <div class="fact"><span class="k">Source</span><span class="v"><a href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">github.com/johnlcstudios-alt</a></span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="index.html">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M32 4 57 18v28L32 60 7 46V18Z" stroke-width="2" />
+            <path d="M21 43V23l22 18V22" />
+          </svg>
+        </span>
+        <span class="brand-txt">
+          <b>JohnLC <em>OSS</em></b>
+          <small>Open Source Softwares</small>
+        </span>
+      </a>
+      <p class="footer-note">
+        Open source software from JohnLC Studios, Eastern Samar, Philippines.
+        Built and published in the open.
+      </p>
+    </div>
+    <div class="footer-links">
+      <span class="lbl">Organization</span>
+      <a href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">GitHub profile</a>
+      <a href="https://github.com/johnlcstudios-alt/?tab=repositories" target="_blank" rel="noopener">All repositories</a>
+      <a href="https://johnlcstudios.kesug.com" target="_blank" rel="noopener">JohnLC Studios</a>
+    </div>
+    <div class="footer-links">
+      <span class="lbl">InfraVerse</span>
+      <a href="infraverse.html">Landing page</a>
+      <a href="https://github.com/johnlcstudios-alt/InfraVerse" target="_blank" rel="noopener">Repository</a>
+      <a href="https://github.com/johnlcstudios-alt/InfraVerse/releases" target="_blank" rel="noopener">Releases</a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span>© 2026 JohnLC Studios · JohnLC OSS</span>
+    <span class="right">Industrial Digital Twin Simulator is part of the InfraVerse project.</span>
+  </div>
+</footer>
+
+</body>
+</html>

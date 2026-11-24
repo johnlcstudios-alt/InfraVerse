@@ -344,4 +344,62 @@ export const PREVIEWS = {
   </g>
   <path d="M48 266h548" stroke="#2b4660" stroke-width="1" opacity=".35"/>
 </svg>`,
+  game: `
+<svg class="preview-art" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0a1a2e"/><stop offset="1" stop-color="#123049"/></linearGradient>
+    <linearGradient id="g-ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#17303d"/><stop offset="1" stop-color="#0a1a22"/></linearGradient>
+    <linearGradient id="g-suit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#c2502a"/></linearGradient>
+    <filter id="g-glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="640" height="300" fill="url(#g-sky)"/>
+  <polygon points="0,300 640,300 640,208 0,214" fill="url(#g-ground)"/>
+  <g stroke="#2c5a6e" stroke-width="1" opacity=".5">
+    <path d="M0 226 640 220"/><path d="M0 244 640 232"/><path d="M0 266 640 248"/>
+  </g>
+  <g opacity=".92">
+    <polygon points="86,208 118,168 150,208" fill="#0f2c3e" stroke="#46a9ff" stroke-width="1.2"/>
+    <rect x="105" y="182" width="26" height="26" fill="#46a9ff" opacity=".55" filter="url(#g-glow)"/>
+    <g transform="translate(210,176)">
+      <rect x="-16" y="-10" width="86" height="34" rx="3" fill="#101d27" stroke="#a98bff" stroke-width="1.2" transform="skewX(-16)"/>
+      <rect x="72" y="-14" width="42" height="30" rx="3" fill="#181125" stroke="#a98bff" stroke-width="1" transform="skewX(-16)"/>
+    </g>
+    <g transform="translate(356,182)">
+      <rect x="-24" y="-14" width="120" height="26" rx="4" fill="#131c22" stroke="#ffb547" stroke-width="1.2"/>
+      <circle cx="12" cy="22" r="8" fill="#0e161c" stroke="#ffb547"/><circle cx="58" cy="22" r="8" fill="#0e161c" stroke="#ffb547"/>
+      <rect x="-30" y="-2" width="26" height="20" rx="3" fill="#2a1d10" stroke="#ffb547" stroke-width=".8"/>
+    </g>
+    <g transform="translate(500,170)">
+      <rect x="-22" y="-16" width="92" height="54" rx="2" fill="#1a2732" stroke="#63b6ff" stroke-width="1.2"/>
+      <rect x="-8" y="-16" width="30" height="54" fill="#0f2733" stroke="#63b6ff" stroke-width=".8"/>
+      <rect x="46" y="-16" width="24" height="10" fill="#22333f"/>
+      <circle cx="58" cy="-20" r="4" fill="#3ce58b" filter="url(#g-glow)"/>
+    </g>
+  </g>
+  <g>
+    <rect x="120" y="150" width="8" height="60" fill="#243541"/><circle cx="124" cy="150" r="7" fill="#9fd8ef" opacity=".8"/>
+    <rect x="148" y="158" width="7" height="52" fill="#243541"/><circle cx="151.5" cy="158" r="5.5" fill="#9fd8ef" opacity=".7"/>
+    <rect x="176" y="164" width="6" height="46" fill="#243541"/><circle cx="179" cy="164" r="4.5" fill="#9fd8ef" opacity=".6"/>
+  </g>
+  <g>
+    <polygon points="248,268 262,238 288,238 302,268" fill="url(#g-suit)" stroke="#ffd2bd" stroke-width="1"/>
+    <circle cx="275" cy="226" r="13" fill="#1c2b36" stroke="#ff9d73" stroke-width="1.6"/>
+    <rect x="262" y="246" width="26" height="10" rx="3" fill="#ffd2bd" opacity=".85"/>
+    <rect x="252" y="252" width="12" height="14" rx="3" fill="#0e161c" stroke="#ff9d73" stroke-width=".8"/>
+    <rect x="286" y="252" width="12" height="14" rx="3" fill="#0e161c" stroke="#ff9d73" stroke-width=".8"/>
+  </g>
+  <g transform="translate(462,236)">
+    <rect x="-64" y="-44" width="128" height="64" rx="7" fill="#0a1219" stroke="#36e2c2" stroke-width="1.6" opacity=".95"/>
+    <text x="0" y="-24" text-anchor="middle" font-family="Cascadia Mono, monospace" font-size="11" fill="#36e2c2">H2O-02 · 64%</text>
+    <text x="0" y="-8" text-anchor="middle" font-family="Cascadia Mono, monospace" font-size="11" fill="#ffb547">SOL-05 · 41%</text>
+    <text x="0" y="8" text-anchor="middle" font-family="Cascadia Mono, monospace" font-size="11" fill="#63b6ff">CLD-04 · -17.8°C</text>
+  </g>
+  <g stroke="#cfe3ef" stroke-width="1.4" opacity=".85">
+    <path d="M320 118v20M310 128h20"/><circle cx="320" cy="128" r="13" fill="none" opacity=".4"/>
+  </g>
+  <g font-family="Cascadia Mono, monospace" font-size="8" fill="#8aa9c0" opacity=".75">
+    <text x="42" y="42">WORK ORDERS 2</text><text x="42" y="56" fill="#ffb547">▸ SEAL RESERVOIR LEAK · 84s</text>
+    <text x="520" y="42" text-anchor="end">SHIFT 08:42</text><text x="520" y="56" text-anchor="end" fill="#3ce58b">● 5 TWINS LINKED</text>
+  </g>
+</svg>`,
 };

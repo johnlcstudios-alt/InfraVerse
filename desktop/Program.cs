@@ -52,7 +52,21 @@ namespace IndustrialDigitalTwinSimulator
             }
 
             ShellLog.Info("WebView2 Runtime version: " + browserVersion);
-            Application.Run(new MainForm());
+
+            // Optional launch argument: --open=<facilityId> asks the platform
+            // launcher to open that facility immediately (used by the TWIN OPS
+            // game to bring up the matching Digital Twin control room).
+            string openFacility = null;
+            foreach (string arg in Environment.GetCommandLineArgs())
+            {
+                if (arg != null && arg.StartsWith("--open=", StringComparison.OrdinalIgnoreCase))
+                {
+                    openFacility = arg.Substring(7).Trim();
+                    break;
+                }
+            }
+
+            Application.Run(new MainForm(null, null, null, openFacility));
             ShellLog.Info("Simulator closed.");
         }
 

@@ -151,6 +151,10 @@ export class BaseInfrastructure {
     this._destroyed = true;
     cancelAnimationFrame(this._raf);
     clearTimeout(this._saveTimer);
+    try { this._twinBusUnsub?.(); } catch { /* ignore */ }
+    this._twinBusUnsub = null;
+    try { this._twinBus?.close?.(); } catch { /* ignore */ }
+    this._twinBus = undefined;
     window.removeEventListener('keydown', this._boundKey);
     document.removeEventListener('pointerdown', this._initAudioGesture);
     if (!this._skipSave) {
@@ -2160,6 +2164,7 @@ export class BaseInfrastructure {
       if (this._refreshAccum >= .2) {
         this._refreshAccum = 0;
         this.refreshLive();
+        this._publishTwinBus();
       }
       this._chartAccum += raw;
       if (this._chartAccum >= 1) {
@@ -2208,6 +2213,76 @@ export class BaseInfrastructure {
     }
     if (this.activeTab === 'overview' && this._renderedAlarmVersion !== this._alarmVersion) {
       if (!this.panelBody.contains(document.activeElement)) { this._renderedAlarmVersion = this._alarmVersion; /* bindings handle alarms */ }
+    }
+  }
+
+  /* =========================================================
+     TwinOps live bridge — every facility publishes a live
+     snapshot (0.2 s) on the `idt-twinbus` BroadcastChannel and
+     receives commands from the TWIN OPS game. The channel is
+     created lazily and the bridge is fully inert when the game
+     is not running anywhere.
+     ========================================================= */
+  _ensureTwinBus() {
+    if (this._twinBus !== undefined) return this._twinBus;
+    try {
+      this._twinBus = new BroadcastChannel('idt-twinbus');
+      this._twinBus.addEventListener('message', (ev) => {
+        const msg = ev?.data;
+        if (msg && msg.type === 'command' && msg.facility === this.id) {
+          try { this._applyTwinCommand(msg.cmd); } catch (err) { console.warn('twin command failed', err); }
+        }
+      });
+    } catch { this._twinBus = null; }
+    return this._twinBus;
+  }
+
+  _publishTwinBus() {
+    const bus = window.__TWINBUS__ || this._ensureTwinBus();
+    if (!bus) return;
+    if (window.__TWINBUS__ && !this._twinBusUnsub && typeof bus.subscribe === 'function') {
+      this._twinBusUnsub = bus.subscribe((msg) => {
+        if (msg && msg.type === 'command' && msg.facility === this.id) {
+          try { this._applyTwinCommand(msg.cmd); } catch (err) { console.warn('twin command failed', err); }
+        }
+      });
+    }
+    try {
+      const sensors = this.sensorDefs.map((d) => {
+        let value = null, status = 'ok';
+        try { value = this.sensorValue(d.id); status = this.sensorStatus(d.id); } catch { /* ignore */ }
+        return { id: d.id, name: d.name, unit: d.unit, value, status };
+      });
+      const alarms = [...this.activeAlarms.values()].filter(a => !a.ack)
+        .map(a => ({ id: a.id, title: a.title, message: a.message, severity: a.severity }));
+      const snap = { type: 'snapshot', facility: this.id, simTime: this.simTime, speed: this.speed, state: this.getRunState(), sensors, alarms };
+      if (typeof bus.postMessage === 'function') bus.postMessage(snap);
+      else bus.publishSnapshot(snap);
+    } catch { /* never let the bridge disturb the twin */ }
+  }
+
+  _applyTwinCommand(cmd) {
+    if (!cmd || typeof cmd !== 'object') return false;
+    switch (cmd.type) {
+      case 'config-patch':
+        if (cmd.patch && typeof cmd.patch === 'object' && this.config) {
+          this.config = deepMerge(this.config, cmd.patch);
+          try { this.applyRuntimeConfig?.(); } catch { /* facility-specific */ }
+          try { this.refreshLive(); } catch { /* ignore */ }
+          this.saveSoon?.();
+        }
+        return true;
+      case 'set-speed':
+        try { this.setSpeed(cmd.value); } catch { /* ignore */ }
+        return true;
+      case 'pause':
+        try { this.pauseSimulation(); } catch { /* ignore */ }
+        return true;
+      case 'resume':
+        try { this.resumeSimulation(); } catch { /* ignore */ }
+        return true;
+      default:
+        return this.onTwinCommand?.(cmd) === true;
     }
   }
 

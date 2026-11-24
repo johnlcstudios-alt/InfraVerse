@@ -84,6 +84,16 @@ class InfraVerseApp {
     this._restartClock();
     this.bootDone();
     this._handleNativeMessages();
+    // TWIN OPS deployment bridge: when the game (or the simulator launch
+    // arguments) requests a facility, open its Digital Twin control room.
+    let launchOpen = null;
+    try { launchOpen = window.__IDT_LAUNCH_ARGS__?.open || null; } catch { /* ignore */ }
+    if (!launchOpen) {
+      try { launchOpen = new URLSearchParams(window.location.search).get('open'); } catch { /* ignore */ }
+    }
+    if (launchOpen && REGISTRY.some(r => r.id === launchOpen)) {
+      setTimeout(() => this.openInfrastructure(launchOpen), 400);
+    }
   }
 
   bootDone() {
@@ -453,7 +463,7 @@ class InfraVerseApp {
     body.append(
       el('p', { class: 'about-p', text: 'A compact, offline-first industrial digital twin platform. Five independently simulated facilities share a unified control experience, interactive 3D environments and local data persistence — plus an integrated use-case scenario that couples all five into one operating site.' }),
       el('div', { class: 'kv-list' },
-        ui.kvRow('Version', '1.1.0'),
+        ui.kvRow('Version', '2.2.8'),
         ui.kvRow('Build', '2026.11.16'),
         ui.kvRow('Rendering', 'WebGL 2 · Three.js r170'),
         ui.kvRow('Runtime', storage.native ? 'Windows WebView2' : 'Browser (development)'),

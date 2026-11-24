@@ -12,15 +12,16 @@ namespace IndustrialDigitalTwinSimulator
     /// </summary>
     internal sealed class RuntimeErrorForm : Form
     {
+        private const string FallbackTitle = "Industrial Digital Twin Simulator";
         private readonly string _downloadUrl;
 
-        public RuntimeErrorForm(string headline, string detail, string downloadUrl)
+        public RuntimeErrorForm(string headline, string detail, string downloadUrl, string appTitle = null)
         {
             _downloadUrl = downloadUrl;
 
             SuspendLayout();
             AutoScaleMode = AutoScaleMode.Dpi;
-            Text = Program.AppTitle;
+            Text = string.IsNullOrEmpty(appTitle) ? FallbackTitle : appTitle;
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -154,7 +155,7 @@ namespace IndustrialDigitalTwinSimulator
                 MessageBox.Show(
                     "Unable to open the download page automatically." + Environment.NewLine + Environment.NewLine +
                     "Please visit: " + _downloadUrl,
-                    Program.AppTitle,
+                    Text,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }

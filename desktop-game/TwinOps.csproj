@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>TwinOps</RootNamespace>
+    <AssemblyName>TwinOps</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ApplicationIcon>..\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <Deterministic>true</Deterministic>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyTitle>TWIN OPS: Field Engineer</AssemblyTitle>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+    <Version>1.0.0</Version>
+    <Product>TWIN OPS: Field Engineer</Product>
+    <Company>3DInfra</Company>
+    <Description>Standalone desktop shell for the TWIN OPS field-engineer game, running on the live data of the Industrial Digital Twin Simulator.</Description>
+    <Copyright>Copyright (c) 3DInfra</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Reference assemblies allow SDK-style net48 builds without the Visual
+         Studio .NET Framework targeting pack installed. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+  </ItemGroup>
+
+  <!-- The game shell reuses the simulator's proven WebView2 hosting, storage
+       bridge, JSON reader, logging and dialogs verbatim — including the same
+       %LOCALAPPDATA%\IndustrialDigitalTwinSimulator config folder, so shifts
+       played here are visible to the simulator and vice versa. -->
+  <ItemGroup>
+    <Compile Include="..\desktop\AppResources.cs" Link="Shared\AppResources.cs" />
+    <Compile Include="..\desktop\ConfigStore.cs" Link="Shared\ConfigStore.cs" />
+    <Compile Include="..\desktop\Json.cs" Link="Shared\Json.cs" />
+    <Compile Include="..\desktop\MainForm.cs" Link="Shared\MainForm.cs" />
+    <Compile Include="..\desktop\RuntimeErrorForm.cs" Link="Shared\RuntimeErrorForm.cs" />
+    <Compile Include="..\desktop\ShellLog.cs" Link="Shared\ShellLog.cs" />
+    <Compile Include="..\desktop\StorageBridge.cs" Link="Shared\StorageBridge.cs" />
+    <Compile Include="..\desktop\TitleBarTheme.cs" Link="Shared\TitleBarTheme.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\app.ico" LogicalName="IndustrialDigitalTwinSimulator.app.ico" />
+  </ItemGroup>
+
+</Project>

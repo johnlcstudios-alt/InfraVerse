@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InfraVerse — Integrated Digital Twin Platform</title>
+  <meta name="description" content="InfraVerse — the industrial digital twin simulator that couples five infrastructure systems into one operating campus." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M32 4 57 18v28L32 60 7 46V18Z" stroke-width="2" />
+          <path d="M21 43V23l22 18V22" />
+        </svg>
+      </span>
+      <span class="brand-txt">
+        <b>JohnLC <em>OSS</em></b>
+        <small>Open Source Softwares</small>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a class="primary" style="color:var(--accent)" href="infraverse.html">InfraVerse</a>
+    </nav>
+    <a class="btn small primary" href="https://github.com/johnlcstudios-alt/InfraVerse" target="_blank" rel="noopener">
+      GitHub repo
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">NEXUS · Integrated Scenario</div>
+        <h1 style="font-size:clamp(36px,5.2vw,62px);font-weight:660;letter-spacing:-.03em;line-height:1.05;">
+          InfraVerse <span class="thin" style="font-weight:300;color:var(--muted);">Campus</span> —
+          <span class="grad">all five twins in one scenario</span>
+        </h1>
+        <p class="lede">
+          One operating campus containing all five digital twins — solar and battery farm,
+          elevated water plant, packaging and sorting line, cold storage building, and the
+          parking/logistics yard — joined by roads, an overhead cable tray carrying power
+          and a process water main, with a central control centre.
+        </p>
+        <div class="hero-actions" style="margin-top:28px;">
+          <a class="btn primary" href="index.html">
+            JohnLC OSS home
+          </a>
+          <a class="btn" href="https://github.com/johnlcstudios-alt/InfraVerse/releases" target="_blank" rel="noopener">
+            Get the portable app
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="console" aria-hidden="true">
+        <div class="console-bar">
+          <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+          <span class="console-title">InfraVerse</span>
+          <span class="console-live"><i></i>live</span>
+        </div>
+        <div class="console-body">
+          <div class="viewport-mock" style="aspect-ratio:auto;padding:18px 16px;background:linear-gradient(160deg,#0a1622,#050b12);">
+            <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);">CAMPUS · INTEGRATED SCENARIO</div>
+            <div style="font-family:var(--mono);font-size:26px;letter-spacing:.02em;margin-top:8px;color:var(--text);">5 TWINS</div>
+            <div style="height:1px;background:var(--line);margin:14px 0 0;"></div>
+            <div style="font-size:11px;color:var(--text-soft);">smoking |
+            <span style="color:var(--warn);">◼</span> active |
+            <span style="color:var(--ok);">◼</span> live |
+            <span style="color:var(--muted);">◼</span> night shift</div>
+            <div style="height:1px;background:var(--line);margin:14px 0 0;"></div>
+            <svg viewBox="0 0 1024 768" style="width:100%;height:auto;max-height:320px;filter:drop-shadow(0 0 24px rgba(54,226,194,.15));">
+              <defs>
+                <linearGradient id="energyGrad" x1="0" y1="0" x2="1024" y2="768">
+                  <stop offset="0" stop-color="#f6b44b" />
+                  <stop offset="0.32" stop-color="#36e2c2" />
+                  <stop offset="0.66" stop-color="#46a9ff" />
+                  <stop offset="1" stop-color="#a98bff" />
+                </linearGradient>
+                <linearGradient id="gridGrad" x1="0" y1="0" x2="1024" y2="768">
+                  <stop offset="0" stop-color="rgba(127,188,225,.15)" />
+                  <stop offset="1" stop-color="rgba(127,188,225,.03)" />
+                </linearGradient>
+              </defs>
+              <path d="M64 256 L960 256" fill="none" stroke="rgba(127,188,225,.2)" stroke-width="1" />
+              <rect x="64" y="256" width="256" height="128" fill="url(#gridGrad)" />
+              <rect x="320" y="128" width="256" height="128" fill="url(#gridGrad)" />
+              <rect x="512" y="0" width="256" height="128" fill="url(#gridGrad)" />
+              <rect x="704" y="384" width="320" height="128" fill="url(#gridGrad)" />
+              <circle cx="256" cy="512" r="48" fill="url(#energyGrad)" />
+              <circle cx="512" cy="64" r="40" fill="url(#energyGrad)" />
+              <circle cx="768" cy="512" r="44" fill="url(#energyGrad)" />
+              <circle cx="384" cy="192" r="32" fill="url(#energyGrad)" fill-opacity=".8" />
+              <circle cx="640" cy="384" r="36" fill="url(#energyGrad)" fill-opacity=".75" />
+              <circle cx="832" cy="192" r="30" fill="url(#energyGrad)" fill-opacity=".7" />
+              <path d="M64 256 L320 128 L384 192" fill="none" stroke="#36e2c2" stroke-width="1.8" />
+              <path d="M960 256 L640 384 L704 320" fill="none" stroke="#36e2c2" stroke-width="1.8" />
+              <path d="M416 128 L512 64 L640 96" fill="none" stroke="#36e2c2" stroke-width="1.8" />
+              <path d="M800 448 L704 576 L768 512" fill="none" stroke="#36e2c2" stroke-width="1.8" />
+              <path d="M320 512 L384 576 L448 512" fill="none" stroke="#36e2c2" stroke-width="1.8" />
+              <path d="M576 640 L640 672 L704 640" fill="none" stroke="#36e2c2" stroke-width="1.8" />
+              <circle cx="512" cy="384" r="8" fill="#fff" />
+            </svg>
+            <div style="margin-top:12px;font-size:11px;color:var(--text-soft);">
+              Energy flows · Reservoir feeds · Trucks replenish · Cold chain quarantines · Alarms active
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="sec-kicker">The Five Facilities</div>
+        <h2>Each twin operates independently, coupled in one scenario</h2>
+        <p>
+          Every facility has its own 3D world, simulation engine, sensors, alarm rules,
+          thresholds and saved configuration. The magic happens when they interact.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature" style="background:linear-gradient(165deg,rgba(14,28,41,0.72),rgba(6,13,21,0.82));border-color:rgba(var(--accent-rgb),0.2);">
+          <div class="ic"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h22M3 8h26M5 15h22M3 22h26"/></svg></div>
+          <h3 style="margin-top:14px;">Smart Parking Lot</h3>
+          <p style="font-size:12.8px;color:var(--muted);">18 occupancy bays, animated barriers, arrival/departure routing, overstay rules.</p>
+          <div class="count">56 interactive objects</div>
+        </div>
+
+        <div class="feature">
+          <div class="ic"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h22M3 8h26M5 15h22M3 22h26"/></svg></div>
+          <h3 style="margin-top:14px;">Smart Water Tank</h3>
+          <p style="font-size:12.8px;color:var(--muted);">10 000 L hydrostatic model, variable-speed pump, motorised valves, turbidity.</p>
+          <div class="count">33 interactive objects</div>
+        </div>
+
+        <div class="feature">
+          <div class="ic"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h22M3 8h26M5 15h22M3 22h26"/></svg></div>
+          <h3 style="margin-top:14px;">Conveyor Sorting Line</h3>
+          <p style="font-size:12.8px;color:var(--muted);">U‑shaped belt loop, live carton tracking, rule-based diverter, jam recovery.</p>
+          <div class="count">39 interactive objects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="sec-kicker">How the campus couples them</div>
+        <h2>Cross‑system interactions</h2>
+        <p>
+          The five subsystems are coupled, not grouped. Energy, water, cold chain,
+          production and logistics all affect each other in real time.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div style="flex:1;">
+          <h3>Energy flow</h3>
+          <p>Photovoltaics and battery power the cold store, pumping, the line, the dock
+            and lighting. The cold reservoir feeds condenser make‑up and the process line.
+          </p>
+          <h3>Cold chain</h3>
+          <p>The reservoir feeds cold store; a low reservoir degrades cooling. If power
+            fails, the cold chain can breach and stock goes into quarantine.</p>
+        </div>
+        <div style="flex:1;">
+          <h3>Production & logistics</h3>
+          <p>The line converts raw material into cartons that transfer into cold-store stock.
+            Trucks replenish raw material and remove finished goods.</p>
+          <h3>Scenario presets</h3>
+          <p>Normal, Peak Production, Grid Outage/Island, Heat Wave, Night Shift and Storm
+            Front presets change clock, cloud cover, ambient temperature, island mode,
+            arrival rate and production target.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="sec-kicker">Performance</div>
+        <h2>Fast. Coupled. Live.</h2>
+        <p>
+          Frame rates measured at 1600 × 900 while running the development agent and a
+          diagnostics session (frame rates higher when idle).
+        </p>
+      </div>
+
+      <div class="repo-grid" style="grid-template-columns:repeat(2,1fr);gap:24px 12px;">
+        <article class="repo-card" style="border-color:rgba(54,226,194,.3);">
+          <div class="repo-top"><span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></span></div>
+          <h3>Parking</h3>
+          <p style="font-size:12.5px;color:var(--muted);">9 sensors | ~37 FPS</p>
+        </article>
+        <article class="repo-card" style="border-color:rgba(54,226,194,.3);">
+          <div class="repo-top"><span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></span></div>
+          <h3>Water</h3>
+          <p style="font-size:12.5px;color:var(--muted);">8 sensors | ~36 FPS</p>
+        </article>
+        <article class="repo-card" style="border-color:rgba(54,226,194,.3);">
+          <div class="repo-top"><span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></span></div>
+          <h3>Conveyor</h3>
+          <p style="font-size:12.5px;color:var(--muted);">9 sensors | ~48 FPS</p>
+        </article>
+        <article class="repo-card" style="border-color:rgba(54,226,194,.3);">
+          <div class="repo-top"><span class="repo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></span></div>
+          <h3>Cold Storage</h3>
+          <p style="font-size:12.5px;color:var(--muted);">11 sensors | ~24 FPS</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="index.html">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M32 4 57 18v28L32 60 7 46V18Z" stroke-width="2" />
+            <path d="M21 43V23l22 18V22" />
+          </svg>
+        </span>
+        <span class="brand-txt">
+          <b>JohnLC <em>OSS</em></b>
+          <small>Open Source Softwares</small>
+        </span>
+      </a>
+      <p class="footer-note">
+        InfraVerse is the flagship project of JohnLC Studios Open Source Softwares.
+      </p>
+    </div>
+    <div class="footer-links">
+      <span class="lbl">Projects</span>
+      <a href="index.html">All projects</a>
+      <a href="infraverse.html">InfraVerse</a>
+      <a href="https://github.com/johnlcstudios-alt/" target="_blank" rel="noopener">GitHub org</a>
+    </div>
+    <div class="footer-links">
+      <span class="lbl">Resources</span>
+      <a href="https://github.com/johnlcstudios-alt/InfraVerse/releases">Releases</a>
+      <a href="https://github.com/johnlcstudios-alt/InfraVerse">Source</a>
+      <a href="https://johnlcstudios.kesug.com">JohnLC Studios</a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span>© 2026 JohnLC Studios · Industrial Digital Twin Simulator</span>
+    <span class="right">Built with Three.js · Edge WebView2</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://app.idt.local https://game.idt.local;" />
+  <title>TWIN OPS — Field Engineer</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="boot-screen">
+    <div class="boot-mark">
+      <svg viewBox="0 0 64 64"><path d="M32 3 58 17v30L32 61 6 47V17Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 43V22l24 20V21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="22" r="3"/><circle cx="44" cy="42" r="3"/></svg>
+    </div>
+    <div class="boot-name">TWIN OPS</div>
+    <div class="boot-sub">FIELD ENGINEER · FIVE TWINS LINKED</div>
+    <div class="boot-track"><span></span></div>
+    <div class="boot-status" id="boot-status">Linking digital twins…</div>
+  </div>
+  <div id="app"></div>
+  <div id="toast-root"></div>
+  <script type="module">
+    /* Standalone TWIN OPS entry — boots the game directly, no launcher.
+       Shares the same persistence store as the simulator, so shifts played
+       here flow into the twin applications and back. */
+    import TwinOpsGame from './js/game/twinops.js';
+
+    const host = {
+      root: document.getElementById('app'),
+      closeInfrastructure: async () => {
+        try {
+          if (window.chrome && window.chrome.webview) {
+            window.chrome.webview.postMessage({ channel: 'idt-app', action: 'close' });
+            return;
+          }
+        } catch { /* ignore */ }
+        location.reload();
+      },
+      // Deployment bridge: open the chosen infrastructure on the Digital Twin
+      // Simulator. In the packaged game this launches IndustrialDigitalTwinSimulator.exe
+      // beside this window (same config store + live bus); in browser preview it
+      // opens the simulator in a second tab, where the live bus works as well.
+      openInfrastructure: (facilityId) => {
+        try {
+          if (window.chrome && window.chrome.webview) {
+            window.chrome.webview.postMessage({ channel: 'idt-app', action: 'launch-simulator', facility: facilityId });
+            return true;
+          }
+          window.open('index.html?open=' + encodeURIComponent(facilityId), '_blank');
+          return true;
+        } catch { return false; }
+      },
+    };
+
+    const game = new TwinOpsGame(host);
+    window.__TWINOPS_GAME__ = game;
+    try {
+      await game.mount();
+      const status = document.getElementById('boot-status');
+      if (status) status.textContent = 'Twins linked · shift ready';
+      setTimeout(() => document.getElementById('boot-screen')?.classList.add('done'), 350);
+    } catch (err) {
+      console.error(err);
+      const status = document.getElementById('boot-status');
+      if (status) status.textContent = 'Failed to start: ' + (err?.message || err);
+    }
+  </script>
+</body>
+</html>

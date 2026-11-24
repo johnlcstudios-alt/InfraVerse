@@ -1,0 +1,17 @@
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.csproj.AssemblyReference.cache
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.AssemblyInfoInputs.cache
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.AssemblyInfo.cs
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.sourcelink.json
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\runtimes\win-x64\native\WebView2Loader.dll
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\TwinOps.exe.config
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\TwinOps.exe
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\TwinOps.pdb
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\Microsoft.Web.WebView2.Core.dll
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\Microsoft.Web.WebView2.WinForms.dll
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\Microsoft.Web.WebView2.Wpf.dll
+C:\xampp\htdocs\3DInfra\desktop-game\bin\Release\net48\WebView2Loader.dll
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.csproj.Up2Date
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.exe
+C:\xampp\htdocs\3DInfra\desktop-game\obj\Release\net48\TwinOps.pdb

@@ -19,9 +19,16 @@ namespace IndustrialDigitalTwinSimulator
     /// </summary>
     internal sealed class MainForm : Form
     {
-        private const string VirtualHostName = "app.idt.local";
-        private const string StartUrl = "https://app.idt.local/index.html";
+        private const string DefaultAppTitle = "Industrial Digital Twin Simulator";
+        private const string DefaultVirtualHostName = "app.idt.local";
+        private const string DefaultStartPath = "index.html";
+        private const string DefaultDownloadUrl = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
         private const string BrowserArguments = "--disable-features=msWebOOUI,msPdfOOUI";
+
+        private readonly string _appTitle;
+        private readonly string _virtualHostName;
+        private readonly string _startUrl;
+        private readonly string _launchOpen;
 
         /// <summary>
         /// Document-created helper that forwards shell keyboard shortcuts from the
@@ -60,14 +67,30 @@ namespace IndustrialDigitalTwinSimulator
         private Rectangle _savedBounds;
 
         public MainForm()
+            : this(null, DefaultVirtualHostName, DefaultStartPath, null)
         {
+        }
+
+        /// <summary>
+        /// Creates the shell window. Derived shells (for example the standalone
+        /// TWIN OPS game executable) can boot a different page over a different
+        /// virtual host while reusing every other behaviour of this form, and can
+        /// ask the platform launcher to open a specific facility on startup.
+        /// </summary>
+        public MainForm(string appTitle, string virtualHostName, string startPath, string launchOpen = null)
+        {
+            _appTitle = string.IsNullOrEmpty(appTitle) ? DefaultAppTitle : appTitle;
+            _virtualHostName = string.IsNullOrEmpty(virtualHostName) ? DefaultVirtualHostName : virtualHostName;
+            _startUrl = "https://" + _virtualHostName + "/" + (string.IsNullOrEmpty(startPath) ? DefaultStartPath : startPath);
+            _launchOpen = string.IsNullOrEmpty(launchOpen) ? null : launchOpen;
+
             _configStore = new ConfigStore();
             _webRoot = Path.Combine(AppContext.BaseDirectory, "web");
             _storageBridge = new StorageBridge(_configStore, PostToWebView);
 
             SuspendLayout();
 
-            Text = Program.AppTitle;
+            Text = _appTitle;
             StartPosition = FormStartPosition.CenterScreen;
             ClientSize = new Size(1600, 900);
             MinimumSize = new Size(1280, 720);
@@ -233,6 +256,10 @@ namespace IndustrialDigitalTwinSimulator
                 try
                 {
                     string bootScript = _configStore.CreateBootScript();
+                    if (!string.IsNullOrEmpty(_launchOpen))
+                    {
+                        bootScript += "window.__IDT_LAUNCH_ARGS__ = {\"open\":" + Json.Quote(_launchOpen) + "};";
+                    }
                     await core.AddScriptToExecuteOnDocumentCreatedAsync(bootScript);
                     await core.AddScriptToExecuteOnDocumentCreatedAsync(ShellKeyboardScript);
                 }
@@ -256,7 +283,7 @@ namespace IndustrialDigitalTwinSimulator
                 try
                 {
                     core.SetVirtualHostNameToFolderMapping(
-                        VirtualHostName,
+                        _virtualHostName,
                         _webRoot,
                         CoreWebView2HostResourceAccessKind.DenyCors);
                 }
@@ -269,7 +296,7 @@ namespace IndustrialDigitalTwinSimulator
 
                 if (File.Exists(Path.Combine(_webRoot, "index.html")))
                 {
-                    core.Navigate(StartUrl);
+                    core.Navigate(_startUrl);
                 }
                 else
                 {
@@ -423,6 +450,10 @@ namespace IndustrialDigitalTwinSimulator
 
                     PostAppResponse(action);
                     break;
+                case "launch-simulator":
+                    LaunchSimulator(ReadString(message, "facility"));
+                    PostAppResponse(action);
+                    break;
                 default:
                     handled = false;
                     break;
@@ -431,6 +462,38 @@ namespace IndustrialDigitalTwinSimulator
             if (!handled)
             {
                 ShellLog.Warn("Unsupported idt-app action: " + action);
+            }
+        }
+
+        /// <summary>
+        /// Launches the Industrial Digital Twin Simulator executable (shipped
+        /// alongside the standalone TWIN OPS game) and asks its launcher to
+        /// open the given facility, so both apps run side by side on the same
+        /// live config store.
+        /// </summary>
+        private void LaunchSimulator(string facility)
+        {
+            try
+            {
+                string simExe = Path.Combine(AppContext.BaseDirectory, "IndustrialDigitalTwinSimulator.exe");
+                if (!File.Exists(simExe))
+                {
+                    ShellLog.Warn("launch-simulator: IndustrialDigitalTwinSimulator.exe was not found next to this executable.");
+                    return;
+                }
+
+                var psi = new ProcessStartInfo
+                {
+                    FileName = simExe,
+                    Arguments = string.IsNullOrEmpty(facility) ? string.Empty : "--open=" + facility,
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
+                ShellLog.Info("Launched the Digital Twin Simulator" + (string.IsNullOrEmpty(facility) ? "." : " (facility: " + facility + ")."));
+            }
+            catch (Exception ex)
+            {
+                ShellLog.Error("Unable to launch the Digital Twin Simulator.", ex);
             }
         }
 
@@ -476,7 +539,7 @@ namespace IndustrialDigitalTwinSimulator
             OpenInExternalBrowser(uri);
         }
 
-        private static bool IsInternalUri(Uri uri)
+        private bool IsInternalUri(Uri uri)
         {
             if (uri == null)
             {
@@ -490,7 +553,7 @@ namespace IndustrialDigitalTwinSimulator
             }
 
             return string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) &&
-                   string.Equals(uri.Host, VirtualHostName, StringComparison.OrdinalIgnoreCase);
+                   string.Equals(uri.Host, _virtualHostName, StringComparison.OrdinalIgnoreCase);
         }
 
         private void OnNavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
@@ -547,7 +610,7 @@ namespace IndustrialDigitalTwinSimulator
                         "The embedded browser stopped unexpectedly. The simulator will close; please start it again." +
                         Environment.NewLine + Environment.NewLine +
                         "A diagnostic log is available at: " + ShellLog.LogPath,
-                        Program.AppTitle,
+                        _appTitle,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     Close();
@@ -642,7 +705,8 @@ namespace IndustrialDigitalTwinSimulator
                     "Try installing or repairing the Microsoft Edge WebView2 Runtime, then start the simulator again." +
                     Environment.NewLine + Environment.NewLine +
                     "Details: " + (exception != null ? exception.Message : "Unknown initialization error."),
-                    Program.RuntimeDownloadUrl))
+                    DefaultDownloadUrl,
+                    _appTitle))
                 {
                     form.ShowDialog(this);
                 }

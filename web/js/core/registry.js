@@ -71,6 +71,20 @@ export const REGISTRY = [
     preview: 'solar',
     loader: () => import('../infrastructures/solar.js'),
   },
+  {
+    id: 'game',
+    code: 'OPS-07',
+    name: 'TWIN OPS: Field Engineer',
+    kicker: 'OPERATIONS GAME',
+    description: 'First-person field-service game running on the live data of all five twins. Incidents on the twins raise work orders in the game; panel changes and repairs flow back into the program.',
+    accent: '#ff8a5c',
+    accentRgb: '255, 138, 92',
+    icon: 'bolt',
+    sensors: 62,
+    equipment: 5,
+    preview: 'game',
+    loader: () => import('../game/twinops.js'),
+  },
 ];
 
 export function getMeta(id) {

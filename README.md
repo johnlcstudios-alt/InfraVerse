@@ -280,6 +280,94 @@ twins into a single operating site.
 - Persistence: per-facility structured JSON in `%LOCALAPPDATA%` (native host) or
   `localStorage` (browser), plus platform-level export/import of every profile.
 
+### TWIN OPS: Field Engineer (OPS-07)
+
+A first-person 3D game — built from scratch in `web/js/game/` — that runs on the
+**actual digital twins themselves**. The game instantiates the five real twin
+applications headless (`twinhost.js`): each facility's own class constructs its exact
+`buildWorld()` model, layout and lighting setup, loads its saved configuration
+(`idt.<id>.config`), and its own `updateSimulation()` engine drives the world every
+tick. Nothing is re-modelled or re-simulated — the game world *is* the twins. The
+campus places the five full-size twin worlds after the Integrated Use-Case Scenario
+site plan, around roads and a central command post.
+
+**Live two-way sync with the program**
+
+- *Twins → game:* on entry each twin reads its persisted configuration and starts from
+  the state the program left behind. While a twin control room runs in a co-open
+  browser tab, `base.js` publishes a live snapshot (sensors, alarms, run state) on the
+  `idt-twinbus` BroadcastChannel every 0.2 s; the game surfaces it in the HUD (cards
+  flip from `SHADOW` to `TWIN LIVE`).
+- *Game → twins:* every control-panel change, repair or citation drives the twin's own
+  public API (`persistSettings`, `restartPump`, `clearBin`, fault toggles…), persists
+  through the twin's own `saveConfig()` into `idt.<id>.config`, and is broadcast as a
+  config patch — a co-open twin applies it immediately, otherwise the twin picks it up
+  on its next open. Evolved operating points (tank level, battery SoC, control states)
+  persist the same way, so the program continues where the shift left off.
+
+**Playing:** the game opens with a **deployment menu** — choose an infrastructure and
+the engineer spawns at that district while the *same infrastructure opens
+automatically on the Digital Twin Simulator*: in the launcher-embedded game the
+platform swaps to that control room; the standalone `TwinOps.exe` launches
+`IndustrialDigitalTwinSimulator.exe --open=<facility>` beside the game window, so
+both run side by side on the same live config store and `idt-twinbus` channel.
+"Full Site Command" spawns at the central command post instead. In game: WASD move ·
+SHIFT sprint · SPACE jump · E interact · F inspect · ESC menu. Mouse look uses
+pointer lock, with an automatic drag-to-look fallback when pointer lock is
+unavailable (VMs / RDP sessions). Green service hatches repair incidents, terminals
+open twin control panels (target level, load shed, belt speed, setpoints,
+citations…), the booth issues overstay citations, and the real twin objects — the
+walk-in freezer door, the sort bins, the security booth — are directly interactable.
+A work-order engine derives missions from the twins' own alarm thresholds, an
+incident director injects real fault states (pump failure, controller fault, line
+jam, compressor trip) and XP/credits track your shift. Progress saves to
+`idt.game.config`.
+
+The game ships its own purpose-built first-person controller (`TwinOpsControls` in
+`web/js/game/twinops.js`) — exact ground rest (no sink/bounce), single-press jumps,
+and mouse look that works with or without pointer lock.
+
+**Performance:** five full twin worlds render acceptably through a district
+visibility system — districts beyond the linear-fog wall are hidden (their whole
+subtree skips draw + shadow passes) with hysteresis against flicker, far districts
+tick their engines on a staggered 15 Hz cadence while near districts run at full
+rate, the shadow frustum is tight and follows the player, shaders are pre-warmed
+during the loading overlay to prevent in-game compile hitches, and an adaptive
+resolution scaler (plus a quality selector in the pause menu) holds the framerate on
+weaker GPUs.
+
+### Standalone game executable
+
+`tools/build-game.ps1` builds **TwinOps.exe**, a second desktop shell that boots the
+game directly (`web\game.html`) over its own virtual origin — no launcher:
+
+```powershell
+pwsh -File tools/build-game.ps1
+.\dist\TwinOps\run.bat
+```
+
+The game shell links the simulator's WebView2 hosting, storage bridge, JSON reader
+and dialogs verbatim and points at the same `%LOCALAPPDATA%\IndustrialDigitalTwinSimulator`
+config store — so a shift played in `TwinOps.exe` is picked up by the simulator
+(and the in-launcher game) and vice versa. Build the main package with
+`tools/build.ps1` as before.
+
+**Files:** `web/js/game/twinhost.js` (headless twin runner — faithful SceneView
+environment + real twin construction), `web/js/game/twinlink.js` (twin adapters,
+config store + live bus), `web/js/game/world.js` (campus terrain, roads, plots),
+`web/js/game/twinops.js` (game app, controller, HUD, missions, panels),
+`web/game.html` (standalone entry), `desktop-game/` (TwinOps shell project).
+Integration touchpoints: launcher registry + card preview, and the guarded live
+bridge in `web/js/core/base.js` (`_publishTwinBus`).
+
+**Verify:** `node tools/test-twinhost.mjs` — the gate test: all five real twin
+applications build headless and tick with zero errors. `node tools/test-game.mjs` —
+19 assertions covering the launcher card, the solo game loop, persistent game→twin
+config round-trips, and (with two co-open tabs) live twin→game mirroring and live
+game→twin commands. `node tools/test-game-controls.mjs` — 11 assertions for the
+controller: mouse look (yaw/pitch), key mapping, walking, eye height,
+single-jump-then-settle with no bounce, and wall collision.
+
 ### Performance (measured in the packaged app, 1600 × 900)
 
 | Facility | Draw calls | Triangles | Interactive objects | Frame rate* |
@@ -349,3 +437,9 @@ by default**, so a normal launch never opens a debugging endpoint.
   `%LOCALAPPDATA%\IndustrialDigitalTwinSimulator\WebView2Data`, then relaunch.
 
 Third-party components and licenses: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+## Documentation
+- Smart Water Tank
+- Smart Parking Lot
+- Solar Panel & Battery System
+- Cold Storage Room
+- Conveyor Belt Sorting Line
