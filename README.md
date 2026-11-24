@@ -4,6 +4,16 @@ A Windows desktop industrial digital-twin simulator. A native WinForms shell hos
 Three.js web application inside Microsoft Edge WebView2, serves the UI from a local
 virtual origin, and persists simulation configuration to per-user JSON files on disk.
 
+
+
+## How to Install 
+**1. Download Latest Version in Releases.** [**Releases**](https://github.com/johnlcstudios-alt/InfraVerse/releases/tag/Release)
+
+**2. Extract**
+
+**3. Click and run** _IndustrialDigitalTwinSimulator.exe_
+
+
 ```
 3DInfra/
 ├── web/                        web application (DOM/CSS/ES modules, vendored Three.js)
