@@ -4,6 +4,16 @@ A Windows desktop industrial digital-twin simulator. A native WinForms shell hos
 Three.js web application inside Microsoft Edge WebView2, serves the UI from a local
 virtual origin, and persists simulation configuration to per-user JSON files on disk.
 
+
+
+## How to Install 
+**1. Download Latest Version in Releases.** [**Releases**](https://github.com/johnlcstudios-alt/InfraVerse/releases/tag/Release)
+
+**2. Extract**
+
+**3. Click and run** _IndustrialDigitalTwinSimulator.exe_
+
+
 ```
 3DInfra/
 ├── web/                        web application (DOM/CSS/ES modules, vendored Three.js)
@@ -305,19 +315,36 @@ site plan, around roads and a central command post.
   on its next open. Evolved operating points (tank level, battery SoC, control states)
   persist the same way, so the program continues where the shift left off.
 
-**Playing:** WASD move · SHIFT sprint · SPACE jump · E interact · F inspect · ESC menu.
-Mouse look uses pointer lock, with an automatic drag-to-look fallback when pointer
-lock is unavailable (VMs / RDP sessions). Green service hatches repair incidents,
-terminals open twin control panels (target level, load shed, belt speed, setpoints,
+**Playing:** the game opens with a **deployment menu** — choose an infrastructure and
+the engineer spawns at that district while the *same infrastructure opens
+automatically on the Digital Twin Simulator*: in the launcher-embedded game the
+platform swaps to that control room; the standalone `TwinOps.exe` launches
+`IndustrialDigitalTwinSimulator.exe --open=<facility>` beside the game window, so
+both run side by side on the same live config store and `idt-twinbus` channel.
+"Full Site Command" spawns at the central command post instead. In game: WASD move ·
+SHIFT sprint · SPACE jump · E interact · F inspect · ESC menu. Mouse look uses
+pointer lock, with an automatic drag-to-look fallback when pointer lock is
+unavailable (VMs / RDP sessions). Green service hatches repair incidents, terminals
+open twin control panels (target level, load shed, belt speed, setpoints,
 citations…), the booth issues overstay citations, and the real twin objects — the
-walk-in freezer door, the sort bins, the security booth — are directly interactable. A
-work-order engine derives missions from the twins' own alarm thresholds, an incident
-director injects real fault states (pump failure, controller fault, line jam,
-compressor trip) and XP/credits track your shift. Progress saves to `idt.game.config`.
+walk-in freezer door, the sort bins, the security booth — are directly interactable.
+A work-order engine derives missions from the twins' own alarm thresholds, an
+incident director injects real fault states (pump failure, controller fault, line
+jam, compressor trip) and XP/credits track your shift. Progress saves to
+`idt.game.config`.
 
 The game ships its own purpose-built first-person controller (`TwinOpsControls` in
 `web/js/game/twinops.js`) — exact ground rest (no sink/bounce), single-press jumps,
 and mouse look that works with or without pointer lock.
+
+**Performance:** five full twin worlds render acceptably through a district
+visibility system — districts beyond the linear-fog wall are hidden (their whole
+subtree skips draw + shadow passes) with hysteresis against flicker, far districts
+tick their engines on a staggered 15 Hz cadence while near districts run at full
+rate, the shadow frustum is tight and follows the player, shaders are pre-warmed
+during the loading overlay to prevent in-game compile hitches, and an adaptive
+resolution scaler (plus a quality selector in the pause menu) holds the framerate on
+weaker GPUs.
 
 ### Standalone game executable
 

@@ -83,10 +83,12 @@ await pageA.evaluate(() => {
 });
 const lvl1 = await pageA.evaluate(() => window.__INFRAVERSE_APP__.current.twinLink.engines.water.level);
 ok('waterEngineEvolves', Math.abs(lvl1 - lvl0) > 0.05, `${lvl0.toFixed(2)} -> ${lvl1.toFixed(2)}`);
-ok('hudTelemetryLive', await pageA.evaluate(() => {
-  const t = document.querySelector('.twops-card .pv')?.textContent || '';
-  return /\d/.test(t);
-}));
+let hudLive = false;
+try {
+  await pageA.waitForFunction(() => /\d/.test(document.querySelector('.twops-card .pv')?.textContent || ''), null, { timeout: 20000 });
+  hudLive = true;
+} catch { /* headless loop throttling */ }
+ok('hudTelemetryLive', hudLive);
 
 /* game -> twin PERSISTENT: target level change reaches the twin's config store */
 await pageA.evaluate(() => {
@@ -171,6 +173,27 @@ await pageB.bringToFront();
 await pageB.waitForTimeout(1500);
 ok('missionsPipelineRuns', await pageB.evaluate(() => Array.isArray(window.__INFRAVERSE_APP__.current.missions)));
 ok('noFatalHud', await pageB.locator('.twops-fatal').count() === 0);
+
+/* game -> twin LIVE state sync: a pump failure in the game mirrors onto the
+   running water twin, and the freezer door the player opens opens on the twin */
+await pageB.evaluate(() => window.__INFRAVERSE_APP__.current.twinLink.commandFacility('water', { type: 'set-leak', value: true }));
+ok('pumpFailureSyncsToTwin', await pageA.evaluate(() => window.__INFRAVERSE_APP__.current?.pump?.failed === true));
+
+await pageA.evaluate(() => window.__INFRAVERSE_APP__.openInfrastructure('cold'));
+await pageA.waitForFunction(() => window.__INFRAVERSE_APP__.current?.meta?.id === 'cold', null, { timeout: 90000 });
+// wait until the cold twin's live channel is publishing before commanding it
+await pageB.bringToFront();
+try {
+  await pageB.waitForFunction(() => window.__INFRAVERSE_APP__.current.twinLink.isLive('cold'), null, { timeout: 25000 });
+} catch { /* proceed — the replay mechanism covers late arrival */ }
+await pageB.evaluate(() => window.__INFRAVERSE_APP__.current.twinLink.commandFacility('cold', { type: 'set-door', value: true }));
+await pageA.bringToFront();
+await pageA.waitForTimeout(800);
+ok('doorSyncsToTwin', await pageA.evaluate(() => {
+  const c = window.__INFRAVERSE_APP__.current;
+  try { c.debugAdvance(6, 0.05); } catch { /* ignore */ }
+  return (c.doors?.openFraction ?? 0) > 0.1;
+}));
 
 /* exit game cleanly */
 await pageB.evaluate(() => window.__INFRAVERSE_APP__.closeInfrastructure());

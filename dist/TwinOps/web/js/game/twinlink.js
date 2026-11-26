@@ -107,6 +107,23 @@ class WaterAdapter extends BaseAdapter {
   get level() { return this.inst.levelPercent(); }
   get leak() { return !!(this.inst.pump?.failed || this.inst.pump?.tripped); }
   get pumpOn() { return !!this.inst.pump?.on; }
+  /* live (non-persisted) state changes a co-open twin must mirror */
+  liveFor(cmd) {
+    const i = this.inst;
+    switch (cmd.type) {
+      case 'set-leak':
+        return cmd.value
+          ? [{ type: 'twin-set', path: 'pump.failed', value: true, alarms: true }, { type: 'twin-set', path: 'pump.on', value: false }]
+          : [{ type: 'twin-set', path: 'pump.failed', value: false }, { type: 'twin-set', path: 'pump.tripped', value: false }, { type: 'twin-call', method: 'restartPump', alarms: true }];
+      case 'fill': return [{ type: 'twin-set', path: 'volumeL', value: i.volumeL, persist: false }];
+      case 'set-pump': return [{ type: 'twin-call', method: 'setPump', args: [!!cmd.value], alarms: true }];
+      case 'set-target-level': return [{ type: 'twin-set', path: 'targetLevel', value: i.targetLevel, persist: true }];
+      case 'set-auto-fill': return [{ type: 'twin-set', path: 'autoFill', value: !!cmd.value, persist: true }];
+      case 'set-auto-drain': return [{ type: 'twin-set', path: 'autoDrain', value: !!cmd.value, persist: true }];
+      case 'set-demand': return [{ type: 'twin-set', path: 'demand.active', value: !!cmd.value, persist: true }];
+    }
+    return null;
+  }
   get status() {
     const l = this.level, t = this.cfg.thresholds || {};
     if (this.leak) return 'danger';
@@ -211,6 +228,15 @@ class SolarAdapter extends BaseAdapter {
     }
     return false;
   }
+  liveFor(cmd) {
+    switch (cmd.type) {
+      case 'set-load': return [{ type: 'twin-set', path: `config.load.loads`, value: this.cfg.load.loads, persist: true }];
+      case 'set-panel-fault': return [{ type: 'twin-set', path: 'config.controller.failure', value: !!cmd.value, alarms: true, persist: true }];
+      case 'set-cloud': return [{ type: 'twin-set', path: 'config.sun.cloudCover', value: this.cfg.sun.cloudCover, persist: true }];
+      case 'set-battery': return [{ type: 'twin-set', path: 'config.battery.on', value: !!cmd.value, persist: true }];
+    }
+    return null;
+  }
   persistPatch() {
     return { battery: { ...(this.cfg.battery || {}), soc: +this.soc.toFixed(1) }, controller: { ...(this.cfg.controller || {}) }, load: { ...(this.cfg.load || {}) } };
   }
@@ -259,6 +285,16 @@ class ConveyorAdapter extends BaseAdapter {
       case 'set-sort-strategy': this.cfg.sorting.strategy = String(cmd.value || 'size'); this._save(); return true;
     }
     return false;
+  }
+  liveFor(cmd) {
+    switch (cmd.type) {
+      case 'set-jam': return [{ type: 'twin-set', path: 'jamActive', value: !!cmd.value, alarms: true }];
+      case 'empty-bin': return [{ type: 'twin-call', method: 'clearBin', args: [cmd.bin || 'A'], alarms: true }];
+      case 'set-motor': return [{ type: 'twin-set', path: 'config.motorOn', value: !!cmd.value, persist: true }];
+      case 'set-speed': return [{ type: 'twin-set', path: 'config.beltSpeed', value: this.cfg.beltSpeed, persist: true }];
+      case 'set-sort-strategy': return [{ type: 'twin-set', path: 'config.sorting.strategy', value: this.cfg.sorting.strategy, persist: true }];
+    }
+    return null;
   }
   persistPatch() {
     return { motorOn: !!this.cfg.motorOn, beltSpeed: +this.cfg.beltSpeed, sorting: { ...(this.cfg.sorting || {}) } };
@@ -334,6 +370,17 @@ class ColdAdapter extends BaseAdapter {
     }
     return false;
   }
+  liveFor(cmd) {
+    const i = this.inst;
+    switch (cmd.type) {
+      case 'set-door': return [{ type: 'twin-set', path: 'doors.target', value: cmd.value ? (i.doors?.openAngle ?? 1.4) : 0 }];
+      case 'set-compressor': return [{ type: 'twin-set', path: 'config.compressor.on', value: !!cmd.value, alarms: true, persist: true }, { type: 'twin-set', path: 'faults.compressor', value: false, alarms: true }];
+      case 'set-target-temp': return [{ type: 'twin-set', path: 'config.compressor.targetTemp', value: this.cfg.compressor.targetTemp, persist: true }];
+      case 'set-compressor-fault': return [{ type: 'twin-set', path: 'faults.compressor', value: !!cmd.value, alarms: true }, { type: 'twin-set', path: 'config.compressor.on', value: !cmd.value, persist: true }];
+      case 'set-damper': return [{ type: 'twin-set', path: `config.zones.${String(cmd.zone || 'A').toUpperCase()}.damper`, value: this.cfg.zones?.[String(cmd.zone || 'A').toUpperCase()]?.damper, persist: true }];
+    }
+    return null;
+  }
   persistPatch() {
     return { compressor: { ...(this.cfg.compressor || {}) }, zones: this.cfg.zones };
   }
@@ -404,6 +451,19 @@ class ParkingAdapter extends BaseAdapter {
     }
     return false;
   }
+  liveFor(cmd) {
+    const i = this.inst;
+    switch (cmd.type) {
+      case 'cite-overstays': return [{ type: 'twin-call', method: 'acknowledgeAlarm', args: ['overstay'], alarms: true }];
+      case 'set-auto-spawn': return [{ type: 'twin-set', path: 'config.spawn.autoSpawn', value: !!cmd.value, persist: true }];
+      case 'set-overstay-limit': return [{ type: 'twin-set', path: 'config.thresholds.overstayMinutes', value: this.cfg.thresholds.overstayMinutes, persist: true }];
+      case 'set-gate': {
+        const bar = cmd.gate === 'exit' ? i.barriers?.exit : i.barriers?.entry;
+        return [{ type: 'twin-set', path: `barriers.${cmd.gate === 'exit' ? 'exit' : 'entry'}.target`, value: cmd.value ? (bar?.openAngle ?? 1.46) : 0 }];
+      }
+    }
+    return null;
+  }
   _isOverstay(veh) {
     const limit = (+this.cfg.thresholds?.overstayMinutes || 15) * 60;
     return veh.state === 'parked' && this.inst.simTime - veh.parkedAt > limit;
@@ -445,24 +505,26 @@ export async function createTwinLink() {
   }
 
   const live = {};          // facilityId -> { t, snapshot } when co-open twin publishes
+  const lastLive = {};      // facilityId -> recent live-state commands (replayed when the twin comes online)
   const pending = {};       // accumulated sim time for staggered far-district ticking
   let bus = null;
   let unsub = null;
   let clock = 10 * 3600 + 20 * 60;   // shared site clock (matches the solar twin's meaningful start)
   let persistTimer = null;
 
-  /* dt is advanced for every twin every frame (their state and clocks stay
-     coherent), but far, culled districts only run their full engine update on
-     a staggered 1-in-4 cadence with the accumulated step — the player cannot
-     see them, so 15 Hz is plenty. */
+  /* dt accrues for every twin every frame (clocks stay coherent), but engine
+     updates are cadenced: near districts at 30 Hz (staggered across frames),
+     far culled districts at ~7.5 Hz — invisible, so the reduced rate is free
+     performance. Physics steps stay small via sub-stepping. */
   function tick(dt, frame = 0, nearSet = null) {
     clock += dt;
     FACILITIES.forEach((f, idx) => {
       const inst = twins[f.id];
       inst.simTime = clock;
-      pending[f.id] = (pending[f.id] || 0) + dt;
+      pending[f.id] = Math.min((pending[f.id] || 0) + dt, 0.15);
       const near = !nearSet || nearSet.has(f.id);
-      if (near || frame % 4 === idx % 4) {
+      const due = near ? (frame % 2 === idx % 2) : (frame % 8 === idx % 8);
+      if (due) {
         let step = pending[f.id];
         pending[f.id] = 0;
         inst.simDt = step;
@@ -496,7 +558,15 @@ export async function createTwinLink() {
   function handleBusMessage(msg) {
     if (!msg || typeof msg !== 'object') return;
     if (msg.type === 'snapshot' && twins[msg.facility]) {
+      const wasLive = !!live[msg.facility];
       live[msg.facility] = { t: Date.now(), snapshot: msg };
+      // a twin control room just came online: replay the recent live-state
+      // commands so its visible state matches the game (its own channel
+      // subscription did not exist when they were first sent)
+      if (!wasLive && Array.isArray(lastLive[msg.facility]) && lastLive[msg.facility].length) {
+        for (const lc of lastLive[msg.facility]) bus?.sendCommand(msg.facility, lc, 'game-replay');
+        lastLive[msg.facility] = [];
+      }
     }
   }
 
@@ -505,7 +575,15 @@ export async function createTwinLink() {
     if (!ad) return false;
     const res = ad.applyCommand(cmd);
     if (res === true || (res && res.handled)) {
-      bus?.sendCommand(id, cmd, 'game');
+      // live state effects (door targets, fault flags, bin resets…) reach a
+      // co-open twin immediately, then the persisted config patch follows
+      const liveCmds = ad.liveFor?.(cmd);
+      if (Array.isArray(liveCmds)) {
+        for (const lc of liveCmds) bus?.sendCommand(id, lc, 'game');
+        lastLive[id] = (lastLive[id] || []).concat(liveCmds).slice(-12);
+      } else {
+        bus?.sendCommand(id, cmd, 'game');
+      }
       if (ad.persistPatch) { try { bus?.sendCommand(id, { type: 'config-patch', patch: ad.persistPatch() }, 'game'); } catch { /* ignore */ } }
       schedulePersist();
       return res;

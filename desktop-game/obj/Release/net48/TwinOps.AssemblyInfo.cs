@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Standalone desktop shell for the TWIN OPS field-engineer game, running on the liv" +
     "e data of the Industrial Digital Twin Simulator.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a6bc4e9b8b2c462454fa87c1a70759298fd3914")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+000909e660d4823e4ea6fd48fd3d05ae233e924f")]
 [assembly: System.Reflection.AssemblyProductAttribute("TWIN OPS: Field Engineer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TWIN OPS: Field Engineer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

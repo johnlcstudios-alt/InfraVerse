@@ -1,5 +1,39 @@
 # Changelog
 
+## Release Notes - Version 2.3.1 (Performance + Live State Reflection)
+
+_Release date: 2026-11-25_
+
+### Improvements
+- **Laptop-grade performance hardening** for TWIN OPS:
+  - District visibility radius tightened (show < 70 m, hide > 82 m) with the linear
+    fog wall matched to it — one district renders at a time.
+  - Engine cadence retuned: near districts simulate at 30 Hz (staggered across
+    frames), far culled districts at ~7.5 Hz with capped, sub-stepped catch-up.
+  - Shadow map reduced to 1024² with a ±40 m player-following frustum.
+  - Camera far plane tightened to 180 m; base pixel ratio capped at 1.25 with the
+    adaptive scaler now reaching 0.6× (auto) and Performance / Balanced presets.
+  - Interaction raycasting throttled to 30 Hz; collision push-out vectors hoisted
+    (allocation-free per frame).
+- **Live state reflection — game actions now mirror onto a running Digital Twin
+  immediately**, not only through saved configuration:
+  - Two new bridge commands in `base.js` (`_applyTwinCommand`): `twin-set` (writes a
+    controlled live path such as `doors.target`, `pump.failed`, `jamActive`,
+    `volumeL`, `config.*`) and `twin-call` (invokes a whitelisted twin method —
+    `clearBin`, `acknowledgeAlarm`, `restartPump`…).
+  - Each game adapter broadcasts the concrete live effects of a player action
+    alongside the config patch: opening the walk-in freezer door in the game opens
+    the door on the running Cold Storage twin; pump failures, line jams, bin
+    resets, emergency top-ups, gate controls and citations mirror the same way.
+  - **Replay on arrival**: if a twin control room opens after the player acted, the
+    recent live-state commands are replayed the moment its channel comes online,
+    so the twin's visible state always matches the game.
+
+### Verification
+- `tools/test-game.mjs` extended to 24 assertions — including `pumpFailureSyncsToTwin`
+  and `doorSyncsToTwin` (a door opened in the game raises `doors.openFraction` on the
+  running Cold Storage twin). All suites green with zero console/page errors.
+
 ## Release Notes - Version 2.3.0 (TWIN OPS: Field Engineer)
 
 _Release date: 2026-11-24 · Applies to `IndustrialDigitalTwinSimulator.exe` and the new standalone `TwinOps.exe`_
@@ -118,11 +152,15 @@ _Release date: 2026-11-24 · Applies to `IndustrialDigitalTwinSimulator.exe` and
 
 - Simulator: `dist\IndustrialDigitalTwinSimulator\IndustrialDigitalTwinSimulator.exe`
   (148.0 KB) · SHA256 `46B8ACFBB002116E36AD378DFD8B0CE8E7D4D90B113D54CC9FC84626A0ED68B4`
+  (superseded by 2.3.1: `FB1E4C123B2B973B2290FECA4703FC24CDA72826509ABB18E48BE9ADC26BE0E0`)
 - Game: `dist\TwinOps\TwinOps.exe` (148 KB, ships beside the simulator executable) ·
   SHA256 `8EE592D4C7D161AA4824908BBAFF61DB9479E2B1EFAE3F46E4E5797581029981`
+  (superseded by 2.3.1: `BF1550AE508532B67DB2BB003F68FD72EA0E7059C668D483CCD350C26839FCAD`)
 - Storage/bridge self-test: 85 checks passed.
 - Automated verification: twinhost gate 5/5 · game suite 22/22 · controls suite
   13/13 · zero console/page errors across all runs.
+  (2.3.1: game suite extended to 24/24 including live door and pump-failure
+  reflection onto running twins.)
 - Integration touchpoints for maintainers: `web/js/core/registry.js` (launcher
   entry), `web/js/core/previews.js` (card art), `web/js/core/base.js`
   (`_publishTwinBus` / `_applyTwinCommand` guarded live bridge),

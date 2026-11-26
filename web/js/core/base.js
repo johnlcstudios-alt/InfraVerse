@@ -16,6 +16,13 @@ const ic = (name, size = 14) => icon(name, size).outerHTML;
 const BASE_HISTORY_LIMIT = 950;
 const HISTORY_INTERVAL = 2;
 
+/* Methods a TWIN OPS game command may invoke on a running twin (whitelist —
+   the bridge never calls anything else, whatever a page sends). */
+const TwinCallMethods = new Set([
+  'clearBin', 'acknowledgeAlarm', 'acknowledgeAllAlarms', 'restartPump',
+  'setPump', 'evaluateAlarms', 'refreshLive', 'saveSoon', 'syncTime',
+]);
+
 const DEFAULT_CONFIG = {
   simSpeed: 1,
   manual: false,
@@ -2272,6 +2279,35 @@ export class BaseInfrastructure {
           this.saveSoon?.();
         }
         return true;
+      case 'twin-set': {
+        // live state mutation from the TWIN OPS game (door targets, fault
+        // flags, tank volume…). Paths use a controlled adapter vocabulary.
+        const segs = String(cmd.path || '').split('.').filter(Boolean);
+        if (!segs.length || segs.length > 4 || segs.some(s => s === '__proto__' || s === 'constructor')) return true;
+        let node = this;
+        for (let i = 0; i < segs.length - 1; i++) {
+          node = node?.[segs[i]];
+          if (node === null || node === undefined) return true;
+        }
+        node[segs[segs.length - 1]] = cmd.value;
+        if (cmd.alarms) { try { this.evaluateAlarms?.(); } catch { /* ignore */ } }
+        try { this.refreshLive?.(); } catch { /* ignore */ }
+        if (cmd.persist) this.saveSoon?.();
+        return true;
+      }
+      case 'twin-call': {
+        // invoke a whitelisted twin method (clearBin, acknowledgeAlarm…)
+        const method = String(cmd.method || '');
+        const allowed = TwinCallMethods;
+        if (!allowed.has(method)) return true;
+        const fn = this[method];
+        if (typeof fn === 'function') {
+          try { fn.apply(this, Array.isArray(cmd.args) ? cmd.args : []); } catch { /* ignore */ }
+        }
+        if (cmd.alarms) { try { this.evaluateAlarms?.(); } catch { /* ignore */ } }
+        try { this.refreshLive?.(); } catch { /* ignore */ }
+        return true;
+      }
       case 'set-speed':
         try { this.setSpeed(cmd.value); } catch { /* ignore */ }
         return true;

@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Native Windows desktop shell for the Industrial Digital Twin Simulator web applic" +
     "ation.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a6bc4e9b8b2c462454fa87c1a70759298fd3914")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+000909e660d4823e4ea6fd48fd3d05ae233e924f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Industrial Digital Twin Simulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Industrial Digital Twin Simulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -448,8 +448,9 @@ by default**, so a normal launch never opens a debugging endpoint.
 
 Third-party components and licenses: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 ## Documentation
-- Smart Water Tank
-- Smart Parking Lot
-- Solar Panel & Battery System
-- Cold Storage Room
-- Conveyor Belt Sorting Line
+- [Smart Water Tank](documentation/smart_water_tank/README.md)
+- [Smart Parking Lot](documentation/smart_parking_lot/README.md)
+- [Solar Panel & Battery System](documentation/solar_panel_battery/README.md)
+- [Cold Storage Room](documentation/cold_storage/README.md)
+- [Conveyor Belt Sorting Line](documentation/conveyor_belt/README.md)
+- [Integrated Use-Case Scenario](documentation/integrated_usecase/README.md)

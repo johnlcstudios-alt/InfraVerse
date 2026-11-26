@@ -61,6 +61,9 @@ const el = (tag, attrs = {}, ...children) => {
   return n;
 };
 
+/* Collision push-out directions (module-level, allocation-free) */
+const _COL_DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
 /* ============================================================
    TwinOpsControls — purpose-built first-person controller.
 
@@ -262,7 +265,8 @@ class TwinOpsControls {
 
   /* ---------------- simulation ---------------- */
   update(dt) {
-    if (!this.enabled) { this._updateInteract(); return; }
+    if (!this.enabled) { if (this._rayFrame++ % 2 === 0) this._updateInteract(); return; }
+    this._rayFrame = (this._rayFrame || 0) + 1;
     const groundedEye = this._keys.has('crouch') ? this.crouchEye : this.eyeHeight;
     this.crouching = this._keys.has('crouch');
 
@@ -304,7 +308,7 @@ class TwinOpsControls {
     }
 
     this._applyRotation();
-    this._updateInteract();
+    if (this._rayFrame % 2 === 0) this._updateInteract();   // 30 Hz is plenty for prompts
   }
 
   _applyRotation() {
@@ -313,12 +317,13 @@ class TwinOpsControls {
 
   _resolveCollisions() {
     const ray = this._collisionRay || (this._collisionRay = new THREE.Raycaster());
+    const origin = this._colOrigin || (this._colOrigin = new THREE.Vector3());
+    const dir = this._colDir || (this._colDir = new THREE.Vector3());
     ray.far = this.playerRadius + 0.12;
-    const originY = Math.max(0.5, this.camera.position.y - 0.9);
-    const origin = new THREE.Vector3(this.camera.position.x, originY, this.camera.position.z);
-    const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]];
-    for (const [dx, dz] of dirs) {
-      ray.set(origin, new THREE.Vector3(dx, 0, dz));
+    origin.set(this.camera.position.x, Math.max(0.5, this.camera.position.y - 0.9), this.camera.position.z);
+    for (const [dx, dz] of _COL_DIRS) {
+      dir.set(dx, 0, dz);
+      ray.set(origin, dir);
       const hits = ray.intersectObjects(this.collisionMeshes, true);
       if (hits.length > 0 && hits[0].distance < this.playerRadius + 0.12) {
         const push = (this.playerRadius + 0.12) - hits[0].distance;
@@ -441,7 +446,7 @@ export default class TwinOpsGame {
       this.rootEl.appendChild(el('div', { class: 'twops-fatal' }, 'WebGL is not available in this runtime.', el('br'), String(err?.message || err)));
       throw err;
     }
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
     this.renderer.setSize(this.rootEl.clientWidth || window.innerWidth, this.rootEl.clientHeight || window.innerHeight);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -453,18 +458,18 @@ export default class TwinOpsGame {
     this.scene.background = new THREE.Color(0x0a1420);
     // linear fog doubles as the district visibility cover: far districts fade
     // out fully before the cull radius hides them (no popping)
-    this.scene.fog = new THREE.Fog(0x0a1420, 38, 100);
-    this.camera = new THREE.PerspectiveCamera(this.config.settings.fov || 72, 16 / 9, 0.1, 400);
+    this.scene.fog = new THREE.Fog(0x0a1420, 22, 68);
+    this.camera = new THREE.PerspectiveCamera(this.config.settings.fov || 72, 16 / 9, 0.1, 180);
     this.camera.position.set(...this.config.pos);
 
     this.hemi = new THREE.HemisphereLight(0x9fc4dd, 0x1c2a33, 0.55);
     this.scene.add(this.hemi);
     this.sun = new THREE.DirectionalLight(0xfff1d6, 1.1);
     this.sun.castShadow = true;
-    this.sun.shadow.mapSize.set(2048, 2048);
-    this.sun.shadow.camera.near = 10;
-    this.sun.shadow.camera.far = 220;
-    const S = 46; // tight, player-following frustum (see _syncWorld)
+    this.sun.shadow.mapSize.set(1024, 1024);
+    this.sun.shadow.camera.near = 5;
+    this.sun.shadow.camera.far = 160;
+    const S = 40; // tight, player-following frustum (see _syncWorld)
     Object.assign(this.sun.shadow.camera, { left: -S, right: S, top: S, bottom: -S });
     this.sun.shadow.camera.updateProjectionMatrix();
     this.sun.target.position.set(0, 0, 0);
@@ -1287,7 +1292,7 @@ export default class TwinOpsGame {
       const wrap = this.twinWrappers[f.id];
       if (!wrap) continue;
       const vis = wrap.__vis === true;
-      if (vis ? d2 < 118 * 118 : d2 < 96 * 96) {
+      if (vis ? d2 < 82 * 82 : d2 < 70 * 70) {
         if (!vis) { wrap.visible = true; wrap.__vis = true; }
       } else if (vis || wrap.__vis === undefined) {
         wrap.visible = false; wrap.__vis = false;
@@ -1297,12 +1302,12 @@ export default class TwinOpsGame {
 
     /* shadow camera follows the player — a tight frustum keeps shadow
        texels dense and the pass cheap */
-    this.sun.position.set(px + sunDirX * 90, sunDirY * 90, pz + sunDirZ * 90);
+    this.sun.position.set(px + sunDirX * 80, sunDirY * 80, pz + sunDirZ * 80);
     this.sun.target.position.set(px, 0, pz);
     this.sun.target.updateMatrixWorld();
 
-    /* adaptive resolution — guards against GPU shortfalls (SwiftShader,
-       integrated graphics) by scaling the render target, not the scene */
+    /* adaptive resolution — guards against GPU shortfalls (integrated
+       laptops) by scaling the render target, not the scene */
     this._fpsAcc = (this._fpsAcc || 0) + raw;
     this._fpsFrames = (this._fpsFrames || 0) + 1;
     if (this._fpsAcc >= 1.5) {
@@ -1310,9 +1315,9 @@ export default class TwinOpsGame {
       this._fpsAcc = 0; this._fpsFrames = 0;
       const quality = this.config.settings.quality || 'auto';
       if (quality === 'auto') {
-        const base = Math.min(window.devicePixelRatio || 1, 1.5);
+        const base = Math.min(window.devicePixelRatio || 1, 1.25);
         let scale = this._qualityScale ?? 1;
-        if (fps < 27 && scale > 0.7) scale = Math.max(0.7, scale - 0.15);
+        if (fps < 27 && scale > 0.6) scale = Math.max(0.6, scale - 0.15);
         else if (fps > 52 && scale < 1) scale = Math.min(1, scale + 0.1);
         if (scale !== this._qualityScale) {
           this._qualityScale = scale;
@@ -1325,9 +1330,9 @@ export default class TwinOpsGame {
   /* quality preset from the pause menu */
   _applyQuality() {
     const quality = this.config.settings.quality || 'auto';
-    const base = Math.min(window.devicePixelRatio || 1, 1.5);
-    if (quality === 'performance') { this._qualityScale = 0.7; this.renderer.setPixelRatio(base * 0.7); }
-    else if (quality === 'balanced') { this._qualityScale = 0.85; this.renderer.setPixelRatio(base * 0.85); }
+    const base = Math.min(window.devicePixelRatio || 1, 1.25);
+    if (quality === 'performance') { this._qualityScale = 0.6; this.renderer.setPixelRatio(base * 0.6); }
+    else if (quality === 'balanced') { this._qualityScale = 0.8; this.renderer.setPixelRatio(base * 0.8); }
     else if (quality === 'high') { this._qualityScale = 1; this.renderer.setPixelRatio(base); }
     else { this._qualityScale = 1; this.renderer.setPixelRatio(base); } // auto re-scales itself
   }
