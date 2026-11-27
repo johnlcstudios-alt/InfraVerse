@@ -446,10 +446,26 @@ by default**, so a normal launch never opens a debugging endpoint.
 - **Blank/black window after an update** – close all simulator instances, delete
   `%LOCALAPPDATA%\IndustrialDigitalTwinSimulator\WebView2Data`, then relaunch.
 
-Third-party components and licenses: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 ## Documentation
-- Smart Water Tank
-- Smart Parking Lot
-- Solar Panel & Battery System
-- Cold Storage Room
-- Conveyor Belt Sorting Line
+
+| Infrastructure | Documentation |
+| --- | --- |
+| Tech Stack (platform-wide) | [documentation/TECH_STACK.md](documentation/TECH_STACK.md) |
+| Smart Parking Lot (PKG-01) | [documentation/smart_parking_lot/README.md](documentation/smart_parking_lot/README.md) |
+| Smart Water Tank (H2O-02) | [documentation/smart_water_tank/README.md](documentation/smart_water_tank/README.md) |
+| Conveyor Sorting Line (CVY-03) | [documentation/conveyor_belt/README.md](documentation/conveyor_belt/README.md) |
+| Cold Storage Room (CLD-04) | [documentation/cold_storage/README.md](documentation/cold_storage/README.md) |
+| Solar & Battery System (SOL-05) | [documentation/solar_panel_battery/README.md](documentation/solar_panel_battery/README.md) |
+| Integrated Use-Case Scenario (USE-06) | [documentation/integrated_usecase/README.md](documentation/integrated_usecase/README.md) |
+
+Platform references:
+
+- [Tech Stack](documentation/TECH_STACK.md) — languages, frameworks, libraries, build
+  tooling and test harnesses used across the program.
+- [Landing page](index.html) — single-file overview of the whole program
+  (opens directly in a browser, no server required).
+- [Module contract](docs/MODULE_CONTRACT.md) — how a facility module plugs into the
+  shared control-room shell.
+- [Third-party notices](THIRD_PARTY_NOTICES.md) — licenses for Three.js, WebView2 and
+  build-time tooling.
+- [Changelog](CHANGELOG.md) — release notes and version history.

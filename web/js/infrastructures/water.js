@@ -14,7 +14,7 @@ import {
 } from '../core/scene.js';
 import * as ui from '../core/ui.js';
 
-const { el } = ui;
+const { el, toast } = ui;
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 export const meta = {

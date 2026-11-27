@@ -10,7 +10,7 @@ import {
 } from '../core/scene.js';
 import * as ui from '../core/ui.js';
 
-const { el } = ui;
+const { el, toast } = ui;
 
 export const meta = {
   id: 'parking',

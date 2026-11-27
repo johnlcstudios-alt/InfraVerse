@@ -50,12 +50,12 @@ export function deepMerge(base, patch) {
 
 export function readTwinConfig(id) {
   const saved = storage.get(`idt.${id}.config`, null);
-  return saved && typeof saved === 'object' ? saved : {};
+  return pruneNulls(saved && typeof saved === 'object' ? saved : {});
 }
 
 export function writeTwinConfigPatch(id, patch) {
   const current = readTwinConfig(id);
-  const next = deepMerge(current, patch);
+  const next = deepMerge(current, pruneNulls(patch));
   storage.set(`idt.${id}.config`, next);
   return next;
 }
@@ -573,11 +573,20 @@ export async function createTwinLink() {
   function commandFacility(id, cmd) {
     const ad = adapters[id];
     if (!ad) return false;
-    const res = ad.applyCommand(cmd);
+    // a twin's internal error must never surface as an uncaught Application
+    // Error — log it and keep the shift running
+    let res;
+    try {
+      res = ad.applyCommand(cmd);
+    } catch (e) {
+      console.warn(`twin command failed (${id}/${cmd?.type})`, e);
+      return false;
+    }
     if (res === true || (res && res.handled)) {
       // live state effects (door targets, fault flags, bin resets…) reach a
       // co-open twin immediately, then the persisted config patch follows
-      const liveCmds = ad.liveFor?.(cmd);
+      let liveCmds = null;
+      try { liveCmds = ad.liveFor?.(cmd) || null; } catch (e) { console.warn('liveFor failed', e); }
       if (Array.isArray(liveCmds)) {
         for (const lc of liveCmds) bus?.sendCommand(id, lc, 'game');
         lastLive[id] = (lastLive[id] || []).concat(liveCmds).slice(-12);

@@ -1,5 +1,35 @@
 # Changelog
 
+## Release Notes - Version 2.3.2 (Stability)
+
+_Release date: 2026-11-27_
+
+### Bug Fixes
+- Fixed the **"Application Error — Cannot read properties of undefined (reading
+  'enabled')"** crash: legacy or partially written saved configurations could carry
+  `null` values (e.g. `consumption: null`, `controller: null`) that `deepMerge`
+  let override the schema defaults, crashing unguarded per-tick reads such as
+  `this.config.consumption.enabled`. `loadConfig()` now deeply prunes null values
+  from saved configurations before merging, so schema defaults always apply; the
+  game-side config readers apply the same pruning.
+- Fixed `ReferenceError: toast is not defined` in the **Smart Water Tank** twin
+  (15 call sites — pump restarts, fault injection, gate operations) and the
+  **Smart Parking Lot** twin (18 call sites — citations, barrier operations):
+  both files used the platform `toast()` without destructuring it from `ui.js`.
+  The game's repair and enforcement flows exposed these latent twin bugs as
+  uncaught application errors.
+- Twin commands from the game are now exception-isolated: an internal twin error
+  can never surface as an uncaught "Application Error" — it is logged and the
+  shift continues.
+
+### Verification
+- Hostile-config probe: a saved Cold Storage configuration with `consumption`,
+  `humidity` and `defrost` set to `null` (plus `controller`/`load`/`battery` nulls
+  for Solar) mounts, ticks and restores schema defaults cleanly.
+- Full interaction sweep (all panels, switches, repairs, citations, door, fill,
+  incidents, save) runs with zero uncaught errors. All suites green: game 24/24 ·
+  controls 13/13 · twinhost gate 5/5.
+
 ## Release Notes - Version 2.3.1 (Performance + Live State Reflection)
 
 _Release date: 2026-11-25_
@@ -151,11 +181,11 @@ _Release date: 2026-11-24 · Applies to `IndustrialDigitalTwinSimulator.exe` and
 ## Build Information
 
 - Simulator: `dist\IndustrialDigitalTwinSimulator\IndustrialDigitalTwinSimulator.exe`
-  (148.0 KB) · SHA256 `46B8ACFBB002116E36AD378DFD8B0CE8E7D4D90B113D54CC9FC84626A0ED68B4`
-  (superseded by 2.3.1: `FB1E4C123B2B973B2290FECA4703FC24CDA72826509ABB18E48BE9ADC26BE0E0`)
+  (148.0 KB) · latest 2.3.2 SHA256
+  `B8F886821C53A78D9D92909FC139C66E3B8990195338F46CAEFD231EF4A5D60A`
 - Game: `dist\TwinOps\TwinOps.exe` (148 KB, ships beside the simulator executable) ·
-  SHA256 `8EE592D4C7D161AA4824908BBAFF61DB9479E2B1EFAE3F46E4E5797581029981`
-  (superseded by 2.3.1: `BF1550AE508532B67DB2BB003F68FD72EA0E7059C668D483CCD350C26839FCAD`)
+  latest 2.3.2 SHA256
+  `369044571C29831E8F3807CE23EA3C75566421BDD189061FAE97C3A29B6E7661`
 - Storage/bridge self-test: 85 checks passed.
 - Automated verification: twinhost gate 5/5 · game suite 22/22 · controls suite
   13/13 · zero console/page errors across all runs.

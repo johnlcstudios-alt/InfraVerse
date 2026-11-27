@@ -48,6 +48,30 @@ function deepMerge(base, patch) {
   return patch === undefined ? base : patch;
 }
 
+/* Deeply drop null/undefined values from a saved configuration. Legacy or
+   hand-edited config files can carry nulls that would otherwise override
+   schema defaults inside deepMerge and crash unguarded reads such as
+   `this.config.<sub>.<field>`. */
+function pruneNulls(value) {
+  if (Array.isArray(value)) {
+    const out = [];
+    for (const v of value) {
+      if (v === null || v === undefined) continue;
+      out.push(pruneNulls(v));
+    }
+    return out;
+  }
+  if (value && typeof value === 'object') {
+    const out = {};
+    for (const [k, v] of Object.entries(value)) {
+      if (v === null || v === undefined) continue;
+      out[k] = pruneNulls(v);
+    }
+    return out;
+  }
+  return value;
+}
+
 export class BaseInfrastructure {
   constructor(host, meta) {
     this.host = host;
@@ -180,7 +204,7 @@ export class BaseInfrastructure {
   loadConfig() {
     const defaults = deepMerge(DEFAULT_CONFIG, this.defaultConfig());
     const saved = storage.get(`idt.${this.id}.config`, {}) || {};
-    const cfg = deepMerge(defaults, saved);
+    const cfg = deepMerge(defaults, pruneNulls(saved));
     cfg.simSpeed = Math.max(0.05, Math.min(100, +cfg.simSpeed || 1));
     cfg.thresholds = cfg.thresholds || {};
     cfg.sensors = cfg.sensors || {};
